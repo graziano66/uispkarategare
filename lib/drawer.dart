@@ -4,6 +4,7 @@ import 'package:uispkarategare/pages/homepage.dart';
 import 'package:uispkarategare/pages/cinture.dart';
 import 'package:uispkarategare/pages/categorie.dart';
 import 'package:uispkarategare/pages/categorie2.dart';
+import 'package:uispkarategare/pages/gare.dart';
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -150,10 +151,10 @@ void selectedItem(BuildContext context, int index) {
       }));
       break;
     case 4:
-//      Navigator.of(context)
-//          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-//        return const GarePage(title: 'D.O. UISP - Gestione gare');
-//      }));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+        return const GarePage(title: 'D.O. UISP - Gestione gare');
+      }));
       break;
   }
 }

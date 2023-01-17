@@ -1,12 +1,10 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart' as http;
 import 'package:data_table_2/data_table_2.dart';
-//import 'package:date_field/date_field.dart';
-
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/global.dart';
+import 'package:uispkarategare/sql.dart';
 import 'package:uispkarategare/pages/gare2.dart';
 
 class GarePage extends StatefulWidget {
@@ -17,65 +15,37 @@ class GarePage extends StatefulWidget {
 }
 
 class _GarePageState extends State<GarePage> {
-  late List data;
-  var numeroRighe = 0;
-  String fldId = '-1';
+  int fldId = -1;
   TextEditingController fldData = TextEditingController(text: '');
   TextEditingController fldDescrizione = TextEditingController(text: '');
   TextEditingController fldNote = TextEditingController(text: '');
 
-  getData() async {
-    /*
-    var s = Uri.parse('${httpcall}UISP_GARE?order=DATA&jwt=$jwt');
-    http.Response res = await http.get(s);
-    if (res.statusCode == 200) {
-      Map dataMap2 = json.decode(res.body);
-      data = dataMap2["records"];
-      numeroRighe = data.length;
-      setState(() {});
-    } else {
-      // ignore: use_build_context_synchronously
-      showDBError(context, res);
-    }
-    */
-  }
-
   @override
   void initState() {
     super.initState();
-    getData();
+    getDataGare();
   }
 
   void garaInserimento() {
-    fldId = '-1';
+    fldId = -1;
     fldData.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
     fldDescrizione.text = '';
     fldNote.text = '';
     garaEdit('Inserimento Nuova Gara');
   }
 
-  void garaModifica(String id) async {
-    /*
-//    print('modifica ingresso id=$id');
-    fldId = id;
-    var s = Uri.parse('${httpcall}UISP_GARE/$id?jwt=$jwt');
-//    print(s);
-    http.Response res = await http.get(s);
-    if (res.statusCode == 200) {
-//      print(res.body);
-      Map data = json.decode(res.body);
-//      data = dataMap2["records"];
-//      fldId = data[0]['ID'].toString();
-      fldSocieta.text = data['IDSOCIETA'].toString();
-      fldData.text = data['DATA'].toString();
-      fldDescrizione.text = data['DESCRIZIONE'].toString();
-      fldNote.text = data['NOTE'].toString();
-      garaEdit('Modifica Gara');
+  void garaModifica(int id) async {
+    getDataGareId(id);
+    if (numeroRigheEdit != 1) {
+      showMessage(context, 'DATABASE ERROR',
+          'DATO NON TROVATO NEL DATABASE ERRNO=$numeroRigheEdit');
     } else {
-      // ignore: use_build_context_synchronously
-      showDBError(context, res);
+      fldId = id;
+      fldData.text = dataEdit[0]['DATA'].toString();
+      fldDescrizione.text = dataEdit[0]['DESCRIZIONE'].toString();
+      fldNote.text = dataEdit[0]['NOTE'].toString();
+      garaEdit('Modifica Gara');
     }
-    */
   }
 
   void garaEdit(String titolo) {
@@ -88,14 +58,6 @@ class _GarePageState extends State<GarePage> {
           height: 300,
           child: Column(
             children: [
-//              TextFormField(
-//                controller: fldData,
-//                decoration: const InputDecoration(
-//                  border: UnderlineInputBorder(),
-//                  labelText: 'DATA GARA',
-//                ),
-//              ),
-              const SizedBox(height: 12.0),
               TextFormField(
                 controller: fldData, //editing controller of this TextField
                 decoration: const InputDecoration(
@@ -137,7 +99,6 @@ class _GarePageState extends State<GarePage> {
                 ),
               ),
               const SizedBox(height: 12.0),
-
               TextFormField(
                 controller: fldNote,
                 decoration: const InputDecoration(
@@ -151,7 +112,14 @@ class _GarePageState extends State<GarePage> {
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
-              saveData();
+              dataEdit.clear();
+              dataEdit.add(
+                  [fldId, fldData.text, fldDescrizione.text, fldNote.text]);
+              saveDataGare();
+              setState(() {
+                getDataGare();
+              });
+              Navigator.pop(context, 'OK');
             },
             child: const Text('OK'),
           ),
@@ -162,49 +130,6 @@ class _GarePageState extends State<GarePage> {
         ],
       ),
     );
-  }
-
-  void saveData() async {
-    /*
-//    print('savedata');
-    Map<String, String> saveData = {};
-
-    saveData['ID'] = fldId;
-    saveData['DATA'] = fldData.text;
-    saveData['DESCRIZIONE'] = fldDescrizione.text;
-    saveData['NOTE'] = fldNote.text;
-//    saveData['jwt'] = jwt;
-    http.Response res;
-//    var s = Uri.parse('${httpcall}UISP_GARE?jwt=$jwt');
-//    print(s);
-    saveData.remove('ID'); // ALTRIMENTI USA -1
-    if (fldId == '-1') {
-      // INSERT NEW RECORD
-//      print('insert');
-      saveData.remove('ID'); // ALTRIMENTI USA -1
-      var s = Uri.parse('${httpcall}UISP_GARE?jwt=$jwt');
-      res = await http.post(s, body: json.encode(saveData));
-    } else {
-      // SAVE CHANGE TO RECORD
-//      print('edit');
-//      print(json.encode(saveData));
-      var s = Uri.parse('${httpcall}UISP_GARE/$fldId?jwt=$jwt');
-      saveData.remove('ID'); // ALTRIMENTI USA -1
-      res = await http.put(s, body: json.encode(saveData));
-    }
-    if (res.statusCode == 200) {
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context, 'OK');
-      // ignore: use_build_context_synchronously
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-        return const GarePage(title: 'D.O. UISP - Gestione gare');
-      }));
-    } else {
-      // ignore: use_build_context_synchronously
-      showDBError(context, res);
-    }
-    */
   }
 
   @override
@@ -272,10 +197,6 @@ class _GarePageState extends State<GarePage> {
                     label: Text('ID'),
                   ),
                   DataColumn2(
-                    fixedWidth: 150,
-                    label: Text('IDSOCIETA'),
-                  ),
-                  DataColumn2(
                     fixedWidth: 100,
                     label: Text('DATA'),
                   ),
@@ -320,7 +241,7 @@ class _GarePageState extends State<GarePage> {
                             color: Colors.green,
                             onPressed: () => {
 //                                  print('edit id=${data[index]["ID"]}'),
-                                  garaModifica(data[index]["ID"].toString())
+                                  garaModifica(data[index]["ID"])
                                 }),
                       ),
                       DataCell(IconButton(
@@ -338,7 +259,6 @@ class _GarePageState extends State<GarePage> {
                         },
                       )),
                       DataCell(Text(data[index]["ID"].toString())),
-                      DataCell(Text(data[index]["IDSOCIETA"].toString())),
                       DataCell(Text(data[index]["DATA"].toString())),
                       DataCell(Text(data[index]["DESCRIZIONE"].toString())),
                       DataCell(Text(data[index]["NOTE"].toString())),

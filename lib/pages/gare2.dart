@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:http/http.dart' as http;
 import 'package:data_table_2/data_table_2.dart';
 //import 'package:date_field/date_field.dart';
-import 'package:file_picker/file_picker.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 //import 'package:uispdogare/drawer.dart';
 import 'package:uispkarategare/global.dart';
@@ -209,14 +209,16 @@ class _Gare2PageState extends State<Gare2Page> {
             onPressed: () async {
               // INSERIRE I DATI IN CSV
 //              print('fff');
-              FilePickerResult? result = await FilePicker.platform.pickFiles();
+//              FilePickerResult? result = await FilePicker.platform.pickFiles();
 //              print('OK');
+              var result = 0;
               if (result != null) {
 //                print('Result');
 //                File file = File(result.files.single.path!);
 //                final contents = await file.readAsString();
 
-                final input = File(result.files.single.path!).openRead();
+//                final input = File(result.files.single.path!).openRead();
+                final input = File('').openRead();
                 final fields = await input
                     .transform(utf8.decoder)
                     .transform(const CsvToListConverter())
