@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             if (isDesktop(context))
               const Expanded(
                 // flex: 1, (default)
-                child: NavigationDrawer(),
+                child: BarraLaterale(),
               ),
             Expanded(
               flex: 5,

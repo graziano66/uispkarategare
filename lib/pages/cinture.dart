@@ -25,7 +25,7 @@ class _CinturePageState extends State<CinturePage> {
 //    print(data);
 //    print(numeroRighe);
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -35,7 +35,7 @@ class _CinturePageState extends State<CinturePage> {
             if (isDesktop(context))
               const Expanded(
                 // flex: 1, (default)
-                child: NavigationDrawer(),
+                child: BarraLaterale(),
               ),
             Expanded(
               flex: 5,

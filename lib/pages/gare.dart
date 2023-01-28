@@ -113,8 +113,13 @@ class _GarePageState extends State<GarePage> {
           ElevatedButton(
             onPressed: () {
               dataEdit.clear();
-              dataEdit.add(
-                  [fldId, fldData.text, fldDescrizione.text, fldNote.text]);
+              dataEdit.add([
+                fldId,
+                annoInUso,
+                fldData.text,
+                fldDescrizione.text,
+                fldNote.text
+              ]);
               saveDataGare();
               setState(() {
                 getDataGare();
@@ -135,13 +140,13 @@ class _GarePageState extends State<GarePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
           ElevatedButton.icon(
             onPressed: () {
-              if (annoInUso == -1) {
+              if (annoInUso == 0) {
                 showMessage(context, 'GARE',
                     'DEVI SELEZIONARE UN ANNO PRIMA DI INSERIRE UNA GARA');
               } else {
@@ -182,7 +187,7 @@ class _GarePageState extends State<GarePage> {
             if (isDesktop(context))
               const Expanded(
                 // flex: 1, (default)
-                child: NavigationDrawer(),
+                child: BarraLaterale(),
               ),
             Expanded(
               flex: 5,
@@ -248,13 +253,14 @@ class _GarePageState extends State<GarePage> {
                         icon: const Icon(Icons.list),
                         color: Colors.green,
                         onPressed: () {
+                          idGaraSelezionata = data[index]["ID"];
 //                          print('Details ${data[index]["ID"]}');
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
                             return Gare2Page(
-                                idGara: data[index]["ID"].toString(),
                                 title:
-                                    'D.O. UISP - Gara Del ${data[index]["DATA"]} - ${data[index]["DESCRIZIONE"]}');
+                                    ' Gara Del ${data[index]["DATA"]} - ${data[index]["DESCRIZIONE"]}');
                           }));
                         },
                       )),

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
+//import 'package:uispkarategare/sql.dart';
 import 'package:uispkarategare/pages/homepage.dart';
 import 'package:uispkarategare/pages/cinture.dart';
 import 'package:uispkarategare/pages/categorie.dart';
 import 'package:uispkarategare/pages/categorie2.dart';
 import 'package:uispkarategare/pages/gare.dart';
 
-class NavigationDrawer extends StatefulWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class BarraLaterale extends StatefulWidget {
+  const BarraLaterale({Key? key}) : super(key: key);
   @override
-  State<NavigationDrawer> createState() => _NavigationDrawerState();
+  State<BarraLaterale> createState() => _BarraLateraleState();
 }
 
-class _NavigationDrawerState extends State<NavigationDrawer> {
+class _BarraLateraleState extends State<BarraLaterale> {
   @override
   Widget build(BuildContext context) {
     var d = Drawer(
@@ -32,33 +33,31 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: DropdownButton<int>(
-                  value: annoInUso,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
+                value: annoInUso,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 16,
 //                style: const TextStyle(color: Colors.deepPurple),
 //                  underline: Container(
 //                    height: 2,
 //                    color: Colors.deepPurpleAccent,
 //                  ),
-                  onChanged: (int? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      annoInUso = value!;
+                onChanged: (int? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    annoInUso = value!;
 //                      if (annoInUso == -1) annoInUsoStr = 'Selezionare un anno';
-                      annoInUsoStr = 'Selezionare un anno';
-                      if (annoInUso == 1) annoInUsoStr = '2022-2023';
-                    });
-                  },
-                  items: const [
-                    DropdownMenuItem(
-                      value: -1,
-                      child: Text('Seleziona un anno'),
-                    ),
-                    DropdownMenuItem(
-                      value: 1,
-                      child: Text('2022-2023'),
-                    ),
-                  ]),
+                    annoInUsoStr = 'Selezionare un anno';
+                    if (annoInUso == 1) annoInUsoStr = '2022-2023';
+                    if (annoInUso == 2) annoInUsoStr = '2022-2023 Arcisate';
+                  });
+                },
+//                items: List.from(anni),
+                items: const [
+                  DropdownMenuItem(value: 0, child: Text('SELEZIONA UN ANNO')),
+                  DropdownMenuItem(value: 1, child: Text('2022-2023')),
+                  DropdownMenuItem(value: 2, child: Text('2022-2023 Arcisate')),
+                ],
+              ),
             ),
             const Divider(color: Colors.white70),
             drawerMenuItem(

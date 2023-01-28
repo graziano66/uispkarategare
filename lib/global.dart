@@ -11,7 +11,7 @@ const buttonColor = Colors.amber;
 const defaultPadding = 16.0;
 
 var dati = '';
-int annoInUso = -1;
+int annoInUso = 0;
 String annoInUsoStr = 'Selezionare un anno';
 
 List<DataColumn> getColumns(List<String> browseCaption) {

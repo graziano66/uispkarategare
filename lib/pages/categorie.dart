@@ -24,7 +24,7 @@ class _CategoriePageState extends State<CategoriePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -34,7 +34,7 @@ class _CategoriePageState extends State<CategoriePage> {
             if (isDesktop(context))
               const Expanded(
                 // flex: 1, (default)
-                child: NavigationDrawer(),
+                child: BarraLaterale(),
               ),
             Expanded(
               flex: 5,

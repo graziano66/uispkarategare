@@ -1,27 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
-//import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
-//import 'package:date_field/date_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/sql.dart';
-import 'package:uispkarategare/pages/gare3.dart';
 
-class Gare2Page extends StatefulWidget {
-  const Gare2Page({Key? key, required this.title}) : super(key: key);
+class Gare3Page extends StatefulWidget {
+  const Gare3Page({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  State<Gare2Page> createState() => _Gare2PageState();
+  State<Gare3Page> createState() => _Gare3PageState();
 }
 
-class _Gare2PageState extends State<Gare2Page> {
-  String fldId = '-1';
-  TextEditingController fld = TextEditingController(text: '');
-
+class _Gare3PageState extends State<Gare3Page> {
   @override
   void initState() {
     super.initState();
