@@ -1,14 +1,11 @@
-import 'package:uispkarategare/global.dart';
 import 'package:sqlite3/sqlite3.dart' as sql;
 
 String database = 'uispkarategare.db';
 String categorie2id = '0';
 String categorie2title = 'Non assegnato';
-//String editID = '0';
-//String editID2 = '0';
-//late BuildContext contextActive;
 
-//late sql.Database db;
+int annoInUso = 0;
+String annoInUsoStr = 'SCEGLI REGOLAMENTO';
 
 List data = [];
 int numeroRighe = 0;
@@ -93,6 +90,7 @@ getDataGare() {
   numeroRighe = 0;
   for (var element in resultSet) {
     data.add(element);
+//    print(element);
     numeroRighe = numeroRighe + 1;
   }
   db.dispose();
@@ -115,7 +113,7 @@ saveDataGare() {
   sql.Database db = sql.sqlite3.open(database);
   if (dataEdit[0][0] != -1) {
     final stmt = db.prepare(
-        'UPDATE GARE SET IDCATEGORIA=? DATA=?,DESCRIZIONE=?,NOTE=? WHERE ID=?');
+        'UPDATE GARE SET IDCATEGORIA=?,DATA=?,DESCRIZIONE=?,NOTE=? WHERE ID=?');
     stmt.execute([
       dataEdit[0][1],
       dataEdit[0][2],
@@ -149,12 +147,12 @@ getDataGare2() {
 
 gare2add(saveData) {
   try {
-    print('add');
+//    print('add');
     sql.Database db = sql.sqlite3.open(database);
     final stmt = db.prepare(
         'INSERT INTO GARE2 (IDGARA,CFSOCIETA,SOCIETA,SOCIETA2,COGNOME,NOME,SESSO,CINTURA,IDCINTURA,ANNO,KATA,KUMITE,PESO,CF,NRTESSERA,NOTE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-    print('add2');
-    print(saveData);
+//    print('add2');
+//    print(saveData);
     stmt.execute([
       saveData['IDGARA'],
       saveData['CFSOCIETA'],
@@ -173,19 +171,176 @@ gare2add(saveData) {
       saveData['NRTESSERA'],
       saveData['NOTE']
     ]);
-    print('add3');
-    print(db.getUpdatedRows());
+//    print('add3');
+//    print(db.getUpdatedRows());
     stmt.dispose();
     db.dispose();
   } catch (ex) {
-    print(ex);
+//    print(ex);
   } finally {
-    print('finally block executed');
+//    print('finally block executed');
   }
 }
 
-bool controllaSeGiaElaborato() {
-  return true;
+elaborazioneCategorie() {
+  cancellaGare3id();
+  elaborazioneCategorieKata();
+  elaborazioneCategorieKumite();
 }
 
-elaborazioneCategorie() {}
+cancellaGare3id() {
+  sql.Database db = sql.sqlite3.open(database);
+  db.execute('DELETE FROM GARE3 WHERE IDGARA=$idGaraSelezionata');
+  db.dispose();
+}
+
+elaborazioneCategorieKata() {
+  sql.Database db = sql.sqlite3.open(database);
+  final sql.ResultSet resultSet = db.select(
+      'SELECT * FROM CATEGORIE2 WHERE IDCATEGORIA=$annoInUso AND KATA=1 ORDER BY ANNO1 DESC,CINTURADA,SESSO DESC');
+  for (var element in resultSet) {
+    String sqlData3 =
+        'SELECT * FROM GARE2 WHERE IDGARA=$idGaraSelezionata AND KATA=1 AND ANNO<=${element['ANNO1']} AND ANNO>=${element['ANNO2']} AND IDCINTURA>=${element['CINTURADA']} AND IDCINTURA<=${element['CINTURAA']}';
+    if (element['SESSO'].toString().toUpperCase() == 'M') {
+      sqlData3 += ' AND SESSO=\'M\'';
+    }
+    if (element['SESSO'].toString().toUpperCase() == 'F') {
+      sqlData3 += ' AND SESSO=\'F\'';
+    }
+//    print(sqlData3);
+    final sql.ResultSet resultSet2 = db.select(sqlData3);
+    if (resultSet2.isNotEmpty) {
+      gare3addHeader(
+          '*',
+          element['DESCRIZIONE'].toString(),
+          '${element['ANNO1']}-${element['ANNO2']}',
+          element['SESSO'].toString(),
+          element['NOTE'].toString(),
+          1,
+          0,
+          '');
+    }
+
+    for (var element2 in resultSet2) {
+      gare3add(element2);
+    }
+  }
+  db.dispose();
+}
+
+elaborazioneCategorieKumite() {
+//  print('idgara=$idGaraSelezionata regole=$annoInUso');
+  sql.Database db = sql.sqlite3.open(database);
+  final sql.ResultSet resultSet = db.select(
+      'SELECT * FROM CATEGORIE2 WHERE IDCATEGORIA=$annoInUso AND KUMITE=1 ORDER BY ANNO1 DESC,CINTURADA,SESSO DESC');
+  for (var element in resultSet) {
+    String sqlData3 =
+        'SELECT * FROM GARE2 WHERE IDGARA=$idGaraSelezionata AND KUMITE=1 AND ANNO<=${element['ANNO1']} AND ANNO>=${element['ANNO2']} AND IDCINTURA>=${element['CINTURADA']} AND IDCINTURA<=${element['CINTURAA']} AND PESO>=${element['PESOINIZIALE']} AND PESO<=${element['PESOFINALE']}';
+    if (element['SESSO'].toString().toUpperCase() == 'M') {
+      sqlData3 += ' AND SESSO=\'M\'';
+    }
+    if (element['SESSO'].toString().toUpperCase() == 'F') {
+      sqlData3 += ' AND SESSO=\'F\'';
+    }
+//    print(sqlData3);
+    final sql.ResultSet resultSet2 = db.select(sqlData3);
+    if (resultSet2.isNotEmpty) {
+      gare3addHeader(
+          '*',
+          element['DESCRIZIONE'].toString(),
+          '${element['ANNO1']}-${element['ANNO2']}',
+          element['SESSO'].toString(),
+          element['NOTE'].toString(),
+          0,
+          1,
+          ' PESO da ${element['PESOINIZIALE']} A ${element['PESOFINALE']}');
+    }
+
+    for (var element2 in resultSet2) {
+      gare3add(element2);
+    }
+  }
+  db.dispose();
+}
+
+gare3addHeader(
+    String t, desc, anno, sesso, note, int kata, int kumite, String peso) {
+//  print('---222---------');
+  Map<String, String> saveData = {};
+  saveData['IDGARA'] = idGaraSelezionata.toString();
+  saveData['CFSOCIETA'] = t;
+  saveData['SOCIETA'] = desc;
+  saveData['SOCIETA2'] = anno;
+  saveData['COGNOME'] = note;
+  saveData['NOME'] = sesso;
+  saveData['SESSO'] = '';
+  saveData['CINTURA'] = '';
+  saveData['IDCINTURA'] = '-1';
+  saveData['ANNO'] = '';
+  saveData['KATA'] = kata.toString();
+  saveData['KUMITE'] = kumite.toString();
+  saveData['PESO'] = '0';
+  saveData['CF'] = '';
+  saveData['NRTESSERA'] = '';
+  saveData['NOTE'] = peso;
+  gare3add(saveData);
+}
+
+gare3add(saveData) {
+  try {
+//    print('add');
+    sql.Database db = sql.sqlite3.open(database);
+    final stmt = db.prepare(
+        'INSERT INTO GARE3 (IDGARA,CFSOCIETA,SOCIETA,SOCIETA2,COGNOME,NOME,SESSO,CINTURA,IDCINTURA,ANNO,KATA,KUMITE,PESO,CF,NRTESSERA,NOTE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+//    print('add2');
+//    print(saveData);
+    stmt.execute([
+      saveData['IDGARA'].toString(),
+      saveData['CFSOCIETA'].toString(),
+      saveData['SOCIETA'].toString(),
+      saveData['SOCIETA2'].toString(),
+      saveData['COGNOME'].toString(),
+      saveData['NOME'].toString(),
+      saveData['SESSO'].toString(),
+      saveData['CINTURA'].toString(),
+      saveData['IDCINTURA'].toString(),
+      saveData['ANNO'].toString(),
+      saveData['KATA'].toString(),
+      saveData['KUMITE'].toString(),
+      saveData['PESO'].toString(),
+      saveData['CF'].toString(),
+      saveData['NRTESSERA'].toString(),
+      saveData['NOTE'].toString()
+    ]);
+//    print('add3');
+//    print(db.getUpdatedRows());
+    stmt.dispose();
+    db.dispose();
+  } catch (ex) {
+//    print(ex);
+  } finally {
+//    print('finally block executed');
+  }
+}
+
+salvaCategorie() {
+  sql.Database db = sql.sqlite3.open(database);
+  db.execute('DELETE FROM GARE3 WHERE IDGARA=$idGaraSelezionata');
+  db.dispose();
+  for (var element in data) {
+    gare3add(element);
+  }
+}
+
+getDataGare3() {
+  sql.Database db = sql.sqlite3.open(database);
+  final sql.ResultSet resultSet =
+      db.select('SELECT * FROM GARE3 WHERE IDGARA=$idGaraSelezionata');
+  numeroRighe = 0;
+  data.clear();
+  for (var element in resultSet) {
+    data.add(element);
+    numeroRighe = numeroRighe + 1;
+  }
+  db.dispose();
+}

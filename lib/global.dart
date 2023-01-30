@@ -4,26 +4,11 @@ const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);
 const bgColor = Color(0xFF212332);
 
-const drawerColor = Colors.green;
+const drawerColor = Colors.black;
 const drawerHoverColor = Colors.blueGrey;
 const buttonColor = Colors.amber;
 
 const defaultPadding = 16.0;
-
-var dati = '';
-int annoInUso = 0;
-String annoInUsoStr = 'Selezionare un anno';
-
-List<DataColumn> getColumns(List<String> browseCaption) {
-  List<DataColumn> columns = [];
-  columns.clear();
-  columns.add(const DataColumn(label: Text('EDIT')));
-  columns.add(const DataColumn(label: Text('DELETE')));
-  for (String s in browseCaption) {
-    columns.add(DataColumn(label: Text(s)));
-  }
-  return columns;
-}
 
 void showDBError(BuildContext context, String error) {
   showDialog<String>(
@@ -118,14 +103,3 @@ bool isTablet(BuildContext context) =>
 
 bool isDesktop(BuildContext context) =>
     MediaQuery.of(context).size.width >= 1100;
-/*
-  bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 850;
-
-   bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width < 1100 &&
-      MediaQuery.of(context).size.width >= 850;
-
-   bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1100;
-*/

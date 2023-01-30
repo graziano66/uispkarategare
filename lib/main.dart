@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/pages/homepage.dart';
 
 void main() {
@@ -12,16 +10,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UISP DO Karate',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      home: const HomePage(title: 'D.O. UISP - Gestione gare'),
+//      theme: ThemeData.dark().copyWith(
+//        scaffoldBackgroundColor: bgColor,
+//        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+//            .apply(bodyColor: Colors.white),
+//        canvasColor: secondaryColor,
+//      ),
+      home: HomePage(title: 'D.O. UISP - Gestione gare'),
     );
   }
 }

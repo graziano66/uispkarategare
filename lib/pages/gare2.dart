@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-//import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
-//import 'package:date_field/date_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 import 'package:uispkarategare/global.dart';
@@ -39,10 +37,13 @@ class _Gare2PageState extends State<Gare2Page> {
           ElevatedButton.icon(
             onPressed: () async {
               // INSERIRE I DATI IN CSV
-              FilePickerResult? result = await FilePicker.platform.pickFiles();
-              print('FILE PICKER ');
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ['csv'],
+              );
+//              print('FILE PICKER ');
               if (result != null) {
-                print('INIZIO INSERIMENTO');
+//                print('INIZIO INSERIMENTO');
                 String errore = '';
                 int numeroErrori = 0;
                 final input = File(result.files.single.path!).openRead();
@@ -100,7 +101,7 @@ class _Gare2PageState extends State<Gare2Page> {
                     saveData['CF'] = f[11].toString().toUpperCase();
                     saveData['NRTESSERA'] = f[12].toString().toUpperCase();
                     saveData['NOTE'] = '';
-                    print('========');
+//                      print('========');
 //                    print(saveData);
                     gare2add(saveData);
                   }
@@ -108,6 +109,9 @@ class _Gare2PageState extends State<Gare2Page> {
               } else {
                 // User canceled the picker
               }
+              setState(() {
+                getDataGare2();
+              });
             },
             icon: const Icon(
               Icons.add,
@@ -122,6 +126,24 @@ class _Gare2PageState extends State<Gare2Page> {
           ),
           ElevatedButton.icon(
             onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return Gare3Page(title: widget.title);
+              }));
+            },
+            icon: const Icon(
+              Icons.arrow_circle_right,
+              size: 24.0,
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              //foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            label: const Text('VAI A ELABORAZIONE CATEGORIE'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
               showMessage(context, 'GARE DETTAGLIO', 'STAMPA');
             },
             icon: const Icon(
@@ -133,67 +155,18 @@ class _Gare2PageState extends State<Gare2Page> {
               //foregroundColor: Colors.black,
               elevation: 0,
             ),
-            label: const Text('Stampa'),
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-//              showMessage(context, 'GARE DETTAGLIO', 'ELABORAZIONE CATEGORIE');
-              var elabora = true;
-              if (controllaSeGiaElaborato() == true) {
-                showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('ATTENZIONE'),
-                    content: const Text(
-                        'ELABORAZIONE CATEGORIE GIA EFFETTUATA, VUOI RIELABORARE O VISUALIZZARE ?'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          elabora = false;
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('VISUALIZZARE'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          elabora = true;
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('RIELABORARE'),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              if (elabora == true) {
-                elaborazioneCategorie();
-              }
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return Gare3Page(title: widget.title);
-              }));
-            },
-            icon: const Icon(
-              Icons.print,
-              size: 24.0,
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              //foregroundColor: Colors.black,
-              elevation: 0,
-            ),
-            label: const Text('ELABORAZIONE CATEGORIE'),
+            label: const Text('Stampa elenco'),
           ),
         ],
       ),
       body: SafeArea(
         child: Row(
           children: [
-//            if (isDesktop(context))
-//              const Expanded(
-            // flex: 1, (default)
-//                child: BarraLaterale(),
-//              ),
+            if (isDesktop(context))
+              const Expanded(
+                // flex: 1, (default)
+                child: BarraLaterale(),
+              ),
             Expanded(
               flex: 5,
               child: DataTable2(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
-//import 'package:uispkarategare/sql.dart';
+import 'package:uispkarategare/sql.dart';
 import 'package:uispkarategare/pages/homepage.dart';
 import 'package:uispkarategare/pages/cinture.dart';
 import 'package:uispkarategare/pages/categorie.dart';
@@ -29,39 +29,30 @@ class _BarraLateraleState extends State<BarraLaterale> {
               icon: Icons.home,
               onClicked: () => selectedItem(context, 0),
             ),
-            const Divider(color: Colors.white70),
+            const Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: DropdownButton<int>(
                 value: annoInUso,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
-//                style: const TextStyle(color: Colors.deepPurple),
-//                  underline: Container(
-//                    height: 2,
-//                    color: Colors.deepPurpleAccent,
-//                  ),
                 onChanged: (int? value) {
-                  // This is called when the user selects an item.
                   setState(() {
                     annoInUso = value!;
-//                      if (annoInUso == -1) annoInUsoStr = 'Selezionare un anno';
-                    annoInUsoStr = 'Selezionare un anno';
-                    if (annoInUso == 1) annoInUsoStr = '2022-2023';
-                    if (annoInUso == 2) annoInUsoStr = '2022-2023 Arcisate';
+                    annoInUsoStr = 'SCEGLI REGOLAMENTO';
+                    if (annoInUso == 1) annoInUsoStr = '22-23 Nazionale';
+                    if (annoInUso == 2) annoInUsoStr = '22-23 Arcisate';
                   });
                 },
-//                items: List.from(anni),
                 items: const [
-                  DropdownMenuItem(value: 0, child: Text('SELEZIONA UN ANNO')),
-                  DropdownMenuItem(value: 1, child: Text('2022-2023')),
-                  DropdownMenuItem(value: 2, child: Text('2022-2023 Arcisate')),
+                  DropdownMenuItem(value: 0, child: Text('SCEGLI REGOLAMENTO')),
+                  DropdownMenuItem(value: 1, child: Text('22-23 Nazionale')),
+                  DropdownMenuItem(value: 2, child: Text('22-23 Arcisate')),
                 ],
               ),
             ),
-            const Divider(color: Colors.white70),
             drawerMenuItem(
-              text: 'Anni Disponibili',
+              text: 'REGOLAMENTI DISPONIBILI',
               icon: Icons.calendar_month,
               onClicked: () => selectedItem(context, 1),
             ),
@@ -94,7 +85,6 @@ class _BarraLateraleState extends State<BarraLaterale> {
             ),
           ],
         ),
-        //color: Colors.green,
       ),
     );
     return d;

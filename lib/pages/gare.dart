@@ -164,21 +164,6 @@ class _GarePageState extends State<GarePage> {
             ),
             label: const Text('NUOVA GARA'),
           ),
-          ElevatedButton.icon(
-            onPressed: () {
-              showMessage(context, 'GARE', 'STAMPA');
-            },
-            icon: const Icon(
-              Icons.print,
-              size: 24.0,
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              //foregroundColor: Colors.black,
-              elevation: 0,
-            ),
-            label: const Text('Stampa'),
-          ),
         ],
       ),
       body: SafeArea(
