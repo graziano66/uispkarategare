@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/sql.dart';
+import 'package:uispkarategare/print/kata.dart';
 
 class Gare3Page extends StatefulWidget {
   const Gare3Page({Key? key, required this.title}) : super(key: key);
@@ -142,6 +143,11 @@ class _Gare3PageState extends State<Gare3Page> {
                 s += '\r';
               }
               f.writeAsString(s);
+
+              createPdfStart();
+              createPdfAddPage();
+              createPdfAddPage();
+              createPdfEnd();
             },
             icon: const Icon(
               Icons.print,

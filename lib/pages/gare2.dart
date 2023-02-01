@@ -66,6 +66,10 @@ class _Gare2PageState extends State<Gare2Page> {
                         f[6].toString().toUpperCase()) {
                       idCintura = c['ID'];
                     }
+                    if (c['NOTE'].toString().toUpperCase() ==
+                        f[6].toString().toUpperCase()) {
+                      idCintura = c['ID'];
+                    }
                   }
                   if (idCintura == -1) {
                     errore =
