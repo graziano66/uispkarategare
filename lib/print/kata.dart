@@ -8,6 +8,13 @@ final PdfDocument document = PdfDocument();
 late PdfSection section;
 late PdfFont mainFont;
 late PdfFont noteFont;
+late PdfPage page;
+late Size pageSize;
+
+String pdfGara = '';
+String pdfData = '';
+String pdfCitta = '';
+String pdfCategoria = '';
 
 createPdfStart() {
   // Create a PDF section and set A3 Landscape.
@@ -26,24 +33,26 @@ createPdfEnd() async {
   File('output.pdf').writeAsBytes(bytes);
 }
 
-createPdfAddPage() {
+createPdfAddPage(List pdfDataList) {
   //Add page to the PDF
-  final PdfPage page = section.pages.add();
+//  print('11111');
+  page = section.pages.add();
   //Get page client size
-  final Size pageSize = page.getClientSize();
-  pdfInternalPageKata(page, pageSize, mainFont, noteFont);
+//  print('2222');
+  pageSize = page.getClientSize();
+//  print('33333');
+  pdfInternalPageKata(pdfDataList);
 }
 
-pdfInternalPageKata(
-    // Disegna il bordo del foglio
-    PdfPage page,
-    Size pageSize,
-    PdfFont mainFont,
-    PdfFont noteFont) {
+pdfInternalPageKata(List pdfDataList) {
+//  print('eeeee');
+//  print(page);
+//  print(pageSize);
   page.graphics.drawRectangle(
       bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
       pen: PdfPens.black);
   // Calcolo del numero di righe nella pagina
+//  print('fff');
   var rowHeight = pageSize.height / 17.5;
   // disegna la prima riga
   page.graphics.drawLine(
@@ -58,6 +67,7 @@ pdfInternalPageKata(
         Offset(0, i * rowHeight + rowHeight / 2),
         Offset(pageSize.width / 6 * 5, i * rowHeight + rowHeight / 2));
   }
+
   // disegna le righe verticali
   for (var i = 1; i < 6; i++) {
     page.graphics.drawLine(PdfPens.black, Offset(pageSize.width / 6 * i, 0),
@@ -121,6 +131,8 @@ pdfInternalPageKata(
       Offset(pageSize.width / 6 * 5, 20 * rowHeight / 2),
       Offset(pageSize.width / 6 * 6, 20 * rowHeight / 2));
   // TODO: SPAREGGI
+
+//  print('STAMPA OK');
 
 // Disegna i quadrati del kata e delle note
   var squareWidth = pageSize.width / 6 / 8;
@@ -190,12 +202,13 @@ pdfInternalPageKata(
   }
 
 // PARTE CON LE SCRITTE
+//  print('STAMPA OK2');
 
   page.graphics.drawString('UISP Area Nazionale Discipline Orientali', mainFont,
       pen: PdfPens.black,
       bounds: Rect.fromLTWH(0, 0, pageSize.width / 6, rowHeight));
 
-  page.graphics.drawString('GARA:', mainFont,
+  page.graphics.drawString('GARA: ', mainFont,
       pen: PdfPens.black,
       bounds:
           Rect.fromLTWH(pageSize.width / 6, 0, pageSize.width / 6, rowHeight));
@@ -207,10 +220,14 @@ pdfInternalPageKata(
       pen: PdfPens.black,
       bounds: Rect.fromLTWH(
           pageSize.width / 6 * 2, 0, pageSize.width / 6, rowHeight));
-  page.graphics.drawString('CATEGORIA:', mainFont,
+  page.graphics.drawString('CAT.$pdfCategoria $pdfCitta', mainFont,
       pen: PdfPens.black,
       bounds: Rect.fromLTWH(
           pageSize.width / 6 * 3, 0, pageSize.width / 6, rowHeight));
+  page.graphics.drawString('$pdfGara $pdfData', mainFont,
+      pen: PdfPens.black,
+      bounds: Rect.fromLTWH(pageSize.width / 6 * 3, rowHeight / 2,
+          pageSize.width / 6, rowHeight));
   page.graphics.drawString('Tabellone Gara KATA N.', mainFont,
       pen: PdfPens.black,
       bounds: Rect.fromLTWH(
@@ -433,4 +450,26 @@ pdfInternalPageKata(
           pageSize.height - rowHeight / 4 * 0 - rowHeight / 4,
           pageSize.width / 6,
           rowHeight / 2));
+
+// STAMPA ELENCO
+  int i = 1;
+  for (var element in pdfDataList) {
+    page.graphics.drawString(element['SOCIETA'], mainFont,
+        pen: PdfPens.black,
+        bounds: Rect.fromLTWH(0, i * rowHeight + rowHeight / 2,
+            pageSize.width / 6, rowHeight / 2));
+    page.graphics.drawString(element['SOCIETA2'], mainFont,
+        pen: PdfPens.black,
+        bounds: Rect.fromLTWH(
+            0, i * rowHeight + rowHeight, pageSize.width / 6, rowHeight / 2));
+    page.graphics.drawString(element['COGNOME'], mainFont,
+        pen: PdfPens.black,
+        bounds: Rect.fromLTWH(pageSize.width / 6, i * rowHeight + rowHeight / 2,
+            pageSize.width / 6, rowHeight / 2));
+    page.graphics.drawString(element['NOME'], mainFont,
+        pen: PdfPens.black,
+        bounds: Rect.fromLTWH(pageSize.width / 6, i * rowHeight + rowHeight,
+            pageSize.width / 6, rowHeight / 2));
+    i += 1;
+  }
 }

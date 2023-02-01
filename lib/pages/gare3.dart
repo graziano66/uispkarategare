@@ -143,10 +143,38 @@ class _Gare3PageState extends State<Gare3Page> {
                 s += '\r';
               }
               f.writeAsString(s);
-
+//              print('ok');
               createPdfStart();
-              createPdfAddPage();
-              createPdfAddPage();
+              List pdfDataList = [];
+              bool inPage = false;
+              for (var element in data) {
+                if (element['CFSOCIETA'] == '*') {
+                  if (inPage) {
+//                    print('create page');
+                    createPdfAddPage(pdfDataList);
+                    pdfDataList.clear();
+                  }
+//                  print('ok1');
+                  inPage = true;
+//                  print('ok2');
+                  pdfGara = element['SOCIETA'].toString();
+//                  print(pdfGara);
+                  pdfData = element['SOCIETA2'].toString();
+//                  print(pdfData);
+                  pdfCitta = element['COGNOME'].toString();
+//                  print(pdfCitta);
+                  pdfCategoria = element['NOME'].toString();
+//                  print(pdfCategoria);
+                } else {
+//                  print('ok7');
+                  pdfDataList.add(element);
+//                  print('ok8');
+                }
+                s += '\r';
+              }
+//              print('ok9');
+              createPdfAddPage(pdfDataList);
+//              print('ok0');
               createPdfEnd();
             },
             icon: const Icon(
