@@ -185,7 +185,7 @@ gare2add(saveData) {
 elaborazioneCategorie() {
   cancellaGare3id();
   elaborazioneCategorieKata();
-//  elaborazioneCategorieKumite();
+  elaborazioneCategorieKumite();
 }
 
 cancellaGare3id() {

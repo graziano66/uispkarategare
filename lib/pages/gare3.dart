@@ -102,16 +102,17 @@ class _Gare3PageState extends State<Gare3Page> {
           ),
           ElevatedButton.icon(
             onPressed: () async {
-              showMessage(
-                  context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
               final directory3 = await getDownloadsDirectory();
 //              print(directory3!.path);
               File f = File('${directory3!.path}/output.csv');
               //f.writeAsString('contents');
+              print('INIZIO STAMPE');
               String s = '';
+              int categorieConteggio = 1;
               for (var element in data) {
                 if (element['CFSOCIETA'] == '*') {
-                  s += '=================';
+                  s += '===Categoria N. $categorieConteggio ==============';
+                  categorieConteggio += 1;
                   s += '\r';
                   s += element['SOCIETA'];
                   s += ',';
@@ -138,19 +139,25 @@ class _Gare3PageState extends State<Gare3Page> {
                   s += element['ANNO'].toString();
                   s += ',';
                   s += element['CINTURA'];
+                  s += ', KG ';
+                  s += element['PESO'].toString();
                 }
 //                s += element.toString();
                 s += '\r';
               }
               f.writeAsString(s);
 //              print('ok');
+              print('INIZIO STAMPE QUADRI');
+
               createPdfStart();
               List pdfDataList = [];
               bool inPage = false;
               for (var element in data) {
+//                if (element['KATA'] == 1) {
                 if (element['CFSOCIETA'] == '*') {
                   if (inPage) {
 //                    print('create page');
+                    createPdfAddPageTestata();
                     createPdfAddPage(pdfDataList);
                     pdfDataList.clear();
                   }
@@ -171,11 +178,58 @@ class _Gare3PageState extends State<Gare3Page> {
 //                  print('ok8');
                 }
                 s += '\r';
-              }
+//                }
 //              print('ok9');
+              }
+              createPdfAddPageTestata();
               createPdfAddPage(pdfDataList);
 //              print('ok0');
               createPdfEnd();
+              print('INIZIO STAMPE ELENCHI');
+
+              createElencoPdfStart();
+              print('INIZIO STAMPE ELENCHI 2');
+              pdfDataList.clear();
+              inPage = false;
+              for (var element in data) {
+                if (element['CFSOCIETA'] == '*') {
+                  if (inPage) {
+//                    print('create page');
+                    createElencoPdfAddPage(pdfDataList);
+                    pdfDataList.clear();
+                  }
+//                  print('ok1');
+                  inPage = true;
+//                  print('ok2');
+                  pdfGara = element['SOCIETA'].toString();
+//                  print(pdfGara);
+                  pdfData = element['SOCIETA2'].toString();
+//                  print(pdfData);
+                  pdfCitta = element['COGNOME'].toString();
+//                  print(pdfCitta);
+                  pdfCategoria = element['NOME'].toString();
+//                  print(pdfCategoria);
+                  if (element['KATA'] == 1) {
+                    pdfTipo = 'KATA';
+                  } else {
+                    pdfTipo = 'KUMITE';
+                  }
+                } else {
+//                  print('ok7');
+                  pdfDataList.add(element);
+//                  print('ok8');
+                }
+                s += '\r';
+//              print('ok9');
+              }
+              print('INIZIO STAMPE ELENCHI fine');
+              createElencoPdfAddPage(pdfDataList);
+//              print('ok0');
+              print('INIZIO STAMPE ELENCHI fine 2');
+              createElencoPdfEnd();
+              print('INIZIO STAMPE ELENCHI fine 3');
+              showMessage(
+                  context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
             },
             icon: const Icon(
               Icons.print,
