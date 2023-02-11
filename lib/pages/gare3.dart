@@ -5,6 +5,7 @@ import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/sql.dart';
 import 'package:uispkarategare/print/kata.dart';
+import 'package:uispkarategare/print/kataOld.dart';
 
 class Gare3Page extends StatefulWidget {
   const Gare3Page({Key? key, required this.title}) : super(key: key);
@@ -149,43 +150,12 @@ class _Gare3PageState extends State<Gare3Page> {
 //              print('ok');
               print('INIZIO STAMPE QUADRI');
 
-              createPdfStart();
-              List pdfDataList = [];
-              bool inPage = false;
-              for (var element in data) {
-//                if (element['KATA'] == 1) {
-                if (element['CFSOCIETA'] == '*') {
-                  if (inPage) {
-//                    print('create page');
-                    createPdfAddPageTestata();
-                    createPdfAddPage(pdfDataList);
-                    pdfDataList.clear();
-                  }
-//                  print('ok1');
-                  inPage = true;
-//                  print('ok2');
-                  pdfGara = element['SOCIETA'].toString();
-//                  print(pdfGara);
-                  pdfData = element['SOCIETA2'].toString();
-//                  print(pdfData);
-                  pdfCitta = element['COGNOME'].toString();
-//                  print(pdfCitta);
-                  pdfCategoria = element['NOME'].toString();
-//                  print(pdfCategoria);
-                } else {
-//                  print('ok7');
-                  pdfDataList.add(element);
-//                  print('ok8');
-                }
-                s += '\r';
-//                }
-//              print('ok9');
-              }
-              createPdfAddPageTestata();
-              createPdfAddPage(pdfDataList);
-//              print('ok0');
-              createPdfEnd();
+              Kata stampa = Kata();
+              stampa.stampa();
+
               print('INIZIO STAMPE ELENCHI');
+
+/*
 
               createElencoPdfStart();
               print('INIZIO STAMPE ELENCHI 2');
@@ -230,6 +200,7 @@ class _Gare3PageState extends State<Gare3Page> {
               print('INIZIO STAMPE ELENCHI fine 3');
               showMessage(
                   context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
+*/
             },
             icon: const Icon(
               Icons.print,

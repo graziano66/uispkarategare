@@ -20,6 +20,18 @@ int numeroRigheCategorie = 0;
 
 int idGaraSelezionata = 0;
 
+getDataGara() {
+  sql.Database db = sql.sqlite3.open(database);
+  final sql.ResultSet resultSet = db.select('SELECT * FROM GARE', []);
+  data.clear();
+  numeroRighe = 0;
+  for (var element in resultSet) {
+    data.add(element);
+    numeroRighe += 1;
+  }
+  db.dispose();
+}
+
 getDataCinture() {
   sql.Database db = sql.sqlite3.open(database);
   final sql.ResultSet resultSet = db.select('SELECT * FROM CINTURE', []);

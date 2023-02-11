@@ -25,44 +25,9 @@ class _BarraLateraleState extends State<BarraLaterale> {
               height: 8,
             ),
             drawerMenuItem(
-              text: 'UISP Home',
+              text: 'Home',
               icon: Icons.home,
               onClicked: () => selectedItem(context, 0),
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButton<int>(
-                value: annoInUso,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                onChanged: (int? value) {
-                  setState(() {
-                    annoInUso = value!;
-                    annoInUsoStr = 'SCEGLI REGOLAMENTO';
-                    if (annoInUso == 1) annoInUsoStr = '22-23 Nazionale';
-                    if (annoInUso == 2) annoInUsoStr = '22-23 Arcisate';
-                  });
-                },
-                items: const [
-                  DropdownMenuItem(value: 0, child: Text('SCEGLI REGOLAMENTO')),
-                  DropdownMenuItem(value: 1, child: Text('22-23 Nazionale')),
-                  DropdownMenuItem(value: 2, child: Text('22-23 Arcisate')),
-                ],
-              ),
-            ),
-            drawerMenuItem(
-              text: 'REGOLAMENTI DISPONIBILI',
-              icon: Icons.calendar_month,
-              onClicked: () => selectedItem(context, 1),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            drawerMenuItem(
-              text: 'Categorie',
-              icon: Icons.list,
-              onClicked: () => selectedItem(context, 2),
             ),
             const SizedBox(
               height: 8,
@@ -76,7 +41,7 @@ class _BarraLateraleState extends State<BarraLaterale> {
               height: 8,
             ),
             drawerMenuItem(
-              text: 'Gare',
+              text: 'Iscritti',
               icon: Icons.group,
               onClicked: () => selectedItem(context, 4),
             ),

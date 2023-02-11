@@ -51,7 +51,7 @@ class _CinturePageState extends State<CinturePage> {
                     label: Text('DESCRIZIONE'),
                   ),
                   DataColumn2(
-                    label: Text('NOTE'),
+                    label: Text('DESCRIZIONE'),
                   ),
                 ],
                 rows: List<DataRow>.generate(

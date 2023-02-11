@@ -38,8 +38,8 @@ dependencies:
   flutter_svg:
   sqlite3: 
   sqlite3_flutter_libs: 
-#  pdf:
-#  printing:
+  pdf:
+  printing:
   data_table_2:
   csv:
   intl:

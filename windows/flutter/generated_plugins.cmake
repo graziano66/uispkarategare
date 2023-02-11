@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  printing
   sqlite3_flutter_libs
   syncfusion_pdfviewer_windows
   url_launcher_windows
