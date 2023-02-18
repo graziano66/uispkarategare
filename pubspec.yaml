@@ -38,15 +38,15 @@ dependencies:
   flutter_svg:
   sqlite3: 
   sqlite3_flutter_libs: 
-#  pdf:
-#  printing:
+  pdf:
+  printing:
   data_table_2:
   csv:
   intl:
   file_picker:  
   path_provider: 
-  syncfusion_flutter_pdf:
-  syncfusion_flutter_pdfviewer:
+  # syncfusion_flutter_pdf:
+  # syncfusion_flutter_pdfviewer:
 
 
 dev_dependencies:

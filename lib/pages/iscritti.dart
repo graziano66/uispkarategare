@@ -6,25 +6,25 @@ import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
-import 'package:uispkarategare/sql.dart';
-import 'package:uispkarategare/pages/gare3.dart';
+import 'package:uispkarategare/database/sql.dart';
 
-class Gare2Page extends StatefulWidget {
-  const Gare2Page({Key? key, required this.title}) : super(key: key);
+class IscrittiPage extends StatefulWidget {
+  const IscrittiPage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  State<Gare2Page> createState() => _Gare2PageState();
+  State<IscrittiPage> createState() => _IscrittiPageState();
 }
 
-class _Gare2PageState extends State<Gare2Page> {
+class _IscrittiPageState extends State<IscrittiPage> {
   String fldId = '-1';
   TextEditingController fld = TextEditingController(text: '');
+  TextEditingController fldOk = TextEditingController(text: '');
 
   @override
   void initState() {
     super.initState();
     getDataCintureList();
-    getDataGare2();
+    getDataIscritti();
   }
 
   @override
@@ -34,6 +34,21 @@ class _Gare2PageState extends State<Gare2Page> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
+          ElevatedButton.icon(
+            onPressed: () {
+              cancellazioneIscritti();
+            },
+            icon: const Icon(
+              Icons.remove,
+              size: 24.0,
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              //foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            label: const Text('CANCELLA ELENCO'),
+          ),
           ElevatedButton.icon(
             onPressed: () async {
               // INSERIRE I DATI IN CSV
@@ -57,6 +72,7 @@ class _Gare2PageState extends State<Gare2Page> {
                       (f[5].toString().toUpperCase() != 'F')) {
                     errore =
                         'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Sesso errato';
+                    // ignore: use_build_context_synchronously
                     showMessage(context, 'ERRORE', errore);
                     numeroErrori += 1;
                   }
@@ -74,6 +90,7 @@ class _Gare2PageState extends State<Gare2Page> {
                   if (idCintura == -1) {
                     errore =
                         'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Cintura errato';
+                    // ignore: use_build_context_synchronously
                     showMessage(context, 'ERRORE', errore);
                     numeroErrori += 1;
                   }
@@ -111,14 +128,14 @@ class _Gare2PageState extends State<Gare2Page> {
                     saveData['NOTE'] = '';
 //                      print('========');
 //                    print(saveData);
-                    gare2add(saveData);
+                    iscrittiAdd(saveData);
                   }
                 }
               } else {
                 // User canceled the picker
               }
               setState(() {
-                getDataGare2();
+                getDataIscritti();
               });
             },
             icon: const Icon(
@@ -131,39 +148,6 @@ class _Gare2PageState extends State<Gare2Page> {
               elevation: 0,
             ),
             label: const Text('INSERIMENTO DATI CSV'),
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return Gare3Page(title: widget.title);
-              }));
-            },
-            icon: const Icon(
-              Icons.arrow_circle_right,
-              size: 24.0,
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              //foregroundColor: Colors.black,
-              elevation: 0,
-            ),
-            label: const Text('VAI A ELABORAZIONE CATEGORIE'),
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              showMessage(context, 'GARE DETTAGLIO', 'STAMPA');
-            },
-            icon: const Icon(
-              Icons.print,
-              size: 24.0,
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              //foregroundColor: Colors.black,
-              elevation: 0,
-            ),
-            label: const Text('Stampa elenco'),
           ),
         ],
       ),
@@ -180,26 +164,16 @@ class _Gare2PageState extends State<Gare2Page> {
               child: DataTable2(
                 columnSpacing: 10,
                 columns: const <DataColumn>[
-//                  DataColumn2(fixedWidth: 40, label: Text('')),
-//                  DataColumn2(fixedWidth: 40, label: Text('')),
-//                  DataColumn2(fixedWidth: 40, label: Text('')),
-//                  DataColumn2(fixedWidth: 50, label: Text('ID')),
-//                  DataColumn2(fixedWidth: 50, label: Text('IDGARA')),
-//                  DataColumn2(fixedWidth: 100, label: Text('CFSOCIETA')),
                   DataColumn2(fixedWidth: 150, label: Text('SOCIETA')),
-                  DataColumn2(fixedWidth: 150, label: Text('SOCIETA2')),
+                  DataColumn2(fixedWidth: 150, label: Text('CITTA')),
                   DataColumn2(fixedWidth: 150, label: Text('COGNOME')),
                   DataColumn2(fixedWidth: 150, label: Text('NOME')),
                   DataColumn2(fixedWidth: 100, label: Text('SESSO')),
                   DataColumn2(fixedWidth: 100, label: Text('CINTURA')),
-//                  DataColumn2(fixedWidth: 50, label: Text('IDCINTURA')),
                   DataColumn2(fixedWidth: 50, label: Text('ANNO')),
                   DataColumn2(fixedWidth: 50, label: Text('KATA')),
                   DataColumn2(fixedWidth: 50, label: Text('KUMITE')),
                   DataColumn2(label: Text('PESO')),
-//                  DataColumn2(fixedWidth: 100, label: Text('CF')),
-//                  DataColumn2(fixedWidth: 100, label: Text('NRTESSERA')),
-//                  DataColumn2(label: Text('NOTE')),
                 ],
                 rows: List<DataRow2>.generate(
                   numeroRighe,
@@ -220,48 +194,16 @@ class _Gare2PageState extends State<Gare2Page> {
                       return null; // Use default value for other states and odd rows.
                     }),
                     cells: <DataCell>[
-//                      DataCell(
-//                        IconButton(
-//                            icon: const Icon(Icons.delete),
-//                            color: Colors.red,
-//                            onPressed: () => {
-//                                  print('delete id=${data[index]["ID"]}')
-//                                }),
-//                      ),
-//                      DataCell(
-//                        IconButton(
-//                            icon: const Icon(Icons.edit),
-//                            color: Colors.green,
-//                            onPressed: () => {
-//                                  print('edit id=${data[index]["ID"]}'),
-//                                  gara2Modifica(data[index]["ID"].toString())
-//                                }),
-//                      ),
-//                      DataCell(
-//                        IconButton(
-//                            icon: const Icon(Icons.list),
-//                            color: Colors.green,
-//                            onPressed: () => {
-//                                  print('Details ${data[index]["ID"]}')
-//                                }),
-//                      ),
-//                      DataCell(Text(data[index]["ID"].toString())),
-//                      DataCell(Text(data[index]["IDGARA"].toString())),
-//                      DataCell(Text(data[index]["CFSOCIETA"].toString())),
                       DataCell(Text(data[index]["SOCIETA"].toString())),
                       DataCell(Text(data[index]["SOCIETA2"].toString())),
                       DataCell(Text(data[index]["COGNOME"].toString())),
                       DataCell(Text(data[index]["NOME"].toString())),
                       DataCell(Text(data[index]["SESSO"].toString())),
                       DataCell(Text(data[index]["CINTURA"].toString())),
-//                      DataCell(Text(data[index]["IDCINTURA"].toString())),
                       DataCell(Text(data[index]["ANNO"].toString())),
                       DataCell(Text(data[index]["KATA"].toString())),
                       DataCell(Text(data[index]["KUMITE"].toString())),
                       DataCell(Text(data[index]["PESO"].toString())),
-//                      DataCell(Text(data[index]["CF"].toString())),
-//                      DataCell(Text(data[index]["NRTESSERA"].toString())),
-//                      DataCell(Text(data[index]["NOTE"].toString())),
                     ],
                   ),
                 ),
@@ -269,6 +211,51 @@ class _Gare2PageState extends State<Gare2Page> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void cancellazioneIscritti() {
+    fldOk.text = 'NO';
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('ATTENZIONE'),
+        content: SizedBox(
+          width: 300,
+          height: 200,
+          child: Column(
+            children: [
+              const Text(
+                  'PER CANCELLARE I DATI SCRIVI SI IN MAIUSCOLO E CONFERMA COL PULSANTE'),
+              const SizedBox(height: 40.0),
+              TextFormField(
+                controller: fldOk,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'CONFERMA',
+                ),
+              ),
+              const SizedBox(height: 12.0),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              if (fldOk.text == 'SI') eseguiSql('DELETE FROM ISCRITTI');
+              setState(() {
+                getDataIscritti();
+              });
+              Navigator.pop(context, 'OK');
+            },
+            child: const Text('CONFERMA CANCELLAZIONE'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, 'ANNULLA'),
+            child: const Text('ANNULLA'),
+          ),
+        ],
       ),
     );
   }

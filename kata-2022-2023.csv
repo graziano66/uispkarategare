@@ -1,0 +1,83 @@
+DESCRIZIONE,ANNO1,ANNO2,CINTURADA,CINTURAA,SESSO,NOTE
+Fascia A,2017,2015,Bianca,Bianca,M,Bianca
+Fascia A,2017,2015,Gialla,Arancio,M,Gialla/Arancio
+Fascia A,2017,2015,Verde,Blu,M,Verde/Blu
+Fascia A,2017,2015,Bianca,Bianca,F,Bianca
+Fascia A,2017,2015,Gialla,Arancio,F,Gialla/Arancio
+Fascia A,2017,2015,Verde,Blu,F,Verde/Blu
+Fascia B,2014,2013,Bianca,Bianca,M,Bianca
+Fascia B,2014,2013,Gialla,Arancio,M,Gialla/Arancio
+Fascia B,2014,2013,Verde,Blu,M,Verde/Blu
+Fascia B,2014,2013,Marrone,Marrone,M,Marrone
+Fascia B,2014,2013,Bianca,Bianca,F,Bianca
+Fascia B,2014,2013,Gialla,Arancio,F,Gialla/Arancio
+Fascia B,2014,2013,Verde,Blu,F,Verde/Blu
+Fascia B,2014,2013,Marrone,Marrone,F,Marrone
+Fascia C,2012,2011,Bianca,Bianca,M,Bianca
+Fascia C,2012,2011,Gialla,Arancio,M,Gialla/Arancio
+Fascia C,2012,2011,Verde,Blu,M,Verde/Blu
+Fascia C,2012,2011,Marrone,Nera,M,Marrone/Nera
+Fascia C,2012,2011,Bianca,Bianca,F,Bianca
+Fascia C,2012,2011,Gialla,Arancio,F,Gialla/Arancio
+Fascia C,2012,2011,Verde,Blu,F,Verde/Blu
+Fascia C,2012,2011,Marrone,Nera,F,Marrone/Nera
+Esordienti dal 13mo al 14mo anno,2010,2009,Bianca,Bianca,M,Bianca
+Esordienti dal 13mo al 14mo anno,2010,2009,Gialla,Arancio,M,Gialla/Arancio
+Esordienti dal 13mo al 14mo anno,2010,2009,Verde,Blu,M,Verde/Blu
+Esordienti dal 13mo al 14mo anno,2010,2009,Marrone,Nera,M,Marrone/Nera
+Esordienti dal 13mo al 14mo anno,2010,2009,Bianca,Bianca,F,Bianca
+Esordienti dal 13mo al 14mo anno,2010,2009,Gialla,Arancio,F,Gialla/Arancio
+Esordienti dal 13mo al 14mo anno,2010,2009,Verde,Blu,F,Verde/Blu
+Esordienti dal 13mo al 14mo anno,2010,2009,Marrone,Nera,F,Marrone/Nera
+Cadetti dal 15mo al 16mo anno,2008,2007,Bianca,Bianca,M,Bianca
+Cadetti dal 15mo al 16mo anno,2008,2007,Gialla,Arancio,M,Gialla/Arancio
+Cadetti dal 15mo al 16mo anno,2008,2007,Verde,Blu,M,Verde/Blu
+Cadetti dal 15mo al 16mo anno,2008,2007,Marrone,Marrone,M,Marrone
+Cadetti dal 15mo al 16mo anno,2008,2007,Nera,Nera,M,Nera
+Cadetti dal 15mo al 16mo anno,2008,2007,Bianca,Bianca,F,Bianca
+Cadetti dal 15mo al 16mo anno,2008,2007,Gialla,Arancio,F,Gialla/Arancio
+Cadetti dal 15mo al 16mo anno,2008,2007,Verde,Blu,F,Verde/Blu
+Cadetti dal 15mo al 16mo anno,2008,2007,Marrone,Marrone,F,Marrone
+Cadetti dal 15mo al 16mo anno,2008,2007,Nera,Nera,F,Nera
+Speranze dal 17mo al 19mo anno,2006,2004,Bianca,Bianca,M,Bianca
+Speranze dal 17mo al 19mo anno,2006,2004,Gialla,Arancio,M,Gialla/Arancio
+Speranze dal 17mo al 19mo anno,2006,2004,Verde,Blu,M,Verde/Blu
+Speranze dal 17mo al 19mo anno,2006,2004,Marrone,Marrone,M,Marrone
+Speranze dal 17mo al 19mo anno,2006,2004,Nera,Nera,M,Nera
+Speranze dal 17mo al 19mo anno,2006,2004,Bianca,Bianca,F,Bianca
+Speranze dal 17mo al 19mo anno,2006,2004,Gialla,Arancio,F,Gialla/Arancio
+Speranze dal 17mo al 19mo anno,2006,2004,Verde,Blu,F,Verde/Blu
+Speranze dal 17mo al 19mo anno,2006,2004,Marrone,Marrone,F,Marrone
+Speranze dal 17mo al 19mo anno,2006,2004,Nera,Nera,F,Nera
+Juniores dal 20mo al 23mo anno,2003,2000,Bianca,Bianca,M,Bianca
+Juniores dal 20mo al 23mo anno,2003,2000,Gialla,Arancio,M,Gialla/Arancio
+Juniores dal 20mo al 23mo anno,2003,2000,Verde,Blu,M,Verde/Blu
+Juniores dal 20mo al 23mo anno,2003,2000,Marrone,Marrone,M,Marrone
+Juniores dal 20mo al 23mo anno,2003,2000,Nera,Nera,M,Nera
+Juniores dal 20mo al 23mo anno,2003,2000,Bianca,Bianca,F,Bianca
+Juniores dal 20mo al 23mo anno,2003,2000,Gialla,Arancio,F,Gialla/Arancio
+Juniores dal 20mo al 23mo anno,2003,2000,Verde,Blu,F,Verde/Blu
+Juniores dal 20mo al 23mo anno,2003,2000,Marrone,Marrone,F,Marrone
+Juniores dal 20mo al 23mo anno,2003,2000,Nera,Nera,F,Nera
+Seniores kata dal 24mo al 38mo anno,1999,1985,Bianca,Bianca,M,Bianca
+Seniores kata dal 24mo al 38mo anno,1999,1985,Gialla,Arancio,M,Gialla/Arancio
+Seniores kata dal 24mo al 38mo anno,1999,1985,Verde,Blu,M,Verde/Blu
+Seniores kata dal 24mo al 38mo anno,1999,1985,Marrone,Marrone,M,Marrone
+Seniores kata dal 24mo al 38mo anno,1999,1985,Nera,Nera,M,Nera
+Seniores kata dal 24mo al 38mo anno,1999,1985,Bianca,Bianca,F,Bianca
+Seniores kata dal 24mo al 38mo anno,1999,1985,Gialla,Arancio,F,Gialla/Arancio
+Seniores kata dal 24mo al 38mo anno,1999,1985,Verde,Blu,F,Verde/Blu
+Seniores kata dal 24mo al 38mo anno,1999,1985,Marrone,Marrone,F,Marrone
+Seniores kata dal 24mo al 38mo anno,1999,1985,Nera,Nera,F,Nera
+Amatori A dal 39mo al 50mo anno,1984,1973,Bianca,Arancio,M,Bianca/Gialla/Arancio
+Amatori A dal 39mo al 50mo anno,1984,1973,Verde,Marrone,M,Verde/Blu/Marrone
+Amatori A dal 39mo al 50mo anno,1984,1973,Nera,Nera,M,Nera
+Amatori A dal 39mo al 50mo anno,1984,1973,Bianca,Arancio,F,Bianca/Gialla/Arancio
+Amatori A dal 39mo al 50mo anno,1984,1973,Verde,Marrone,F,Verde/Blu/Marrone
+Amatori A dal 39mo al 50mo anno,1984,1973,Nera,Nera,F,Nera
+Amatori B dal 51mo anno,1972,1901,Bianca,Arancio,M,Bianca/Gialla/Arancio
+Amatori B dal 51mo anno,1972,1901,Verde,Marrone,M,Verde/Blu/Marrone
+Amatori B dal 51mo anno,1972,1901,Nera,Nera,M,Nera
+Amatori B dal 51mo anno,1972,1901,Bianca,Arancio,F,Bianca/Gialla/Arancio
+Amatori B dal 51mo anno,1972,1901,Verde,Marrone,F,Verde/Blu/Marrone
+Amatori B dal 51mo anno,1972,1901,Nera,Nera,F,Nera

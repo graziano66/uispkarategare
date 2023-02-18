@@ -1,21 +1,22 @@
+
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/global.dart';
-import 'package:uispkarategare/sql.dart';
+import 'package:uispkarategare/database/sql.dart';
 
-class Categorie2Page extends StatefulWidget {
-  const Categorie2Page({Key? key, required this.title}) : super(key: key);
+class CategorieKataPage extends StatefulWidget {
+  const CategorieKataPage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  State<Categorie2Page> createState() => _Categorie2PageState();
+  State<CategorieKataPage> createState() => _CategorieKataPageState();
 }
 
-class _Categorie2PageState extends State<Categorie2Page> {
+class _CategorieKataPageState extends State<CategorieKataPage> {
   @override
   void initState() {
     super.initState();
-    getDataCategorie2();
+    getDataCategorieKata();
   }
 
   @override
@@ -24,10 +25,11 @@ class _Categorie2PageState extends State<Categorie2Page> {
       drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
+/*
         actions: <Widget>[
           ElevatedButton.icon(
             onPressed: () {
-              showMessage(context, 'CATEGORIE', 'STAMPA');
+              showMessage(context, 'CATEGORIE KATA', 'STAMPA');
             },
             icon: const Icon(
               Icons.print,
@@ -41,6 +43,7 @@ class _Categorie2PageState extends State<Categorie2Page> {
             label: const Text('Stampa'),
           ),
         ],
+*/
       ),
       body: SafeArea(
         child: Row(
@@ -56,10 +59,6 @@ class _Categorie2PageState extends State<Categorie2Page> {
                 columnSpacing: 10,
                 columns: const <DataColumn>[
                   DataColumn2(
-                    fixedWidth: 100,
-                    label: Text('CATEGORIA'),
-                  ),
-                  DataColumn2(
                     fixedWidth: 300,
                     label: Text('DESCRIZIONE'),
                   ),
@@ -68,19 +67,15 @@ class _Categorie2PageState extends State<Categorie2Page> {
                     label: Text('ANNI'),
                   ),
                   DataColumn2(
-                    fixedWidth: 80,
-                    label: Text('TIPO'),
-                  ),
-                  DataColumn2(
-                    fixedWidth: 80,
-                    label: Text('PESO'),
-                  ),
-                  DataColumn2(
                     fixedWidth: 150,
                     label: Text('CINTURA'),
                   ),
                   DataColumn2(
+                    fixedWidth: 80,
                     label: Text('SESSO'),
+                  ),
+                  DataColumn2(
+                    label: Text('NOTE'),
                   ),
                 ],
                 rows: List<DataRow>.generate(
@@ -102,25 +97,16 @@ class _Categorie2PageState extends State<Categorie2Page> {
                       return null; // Use default value for other states and odd rows.
                     }),
                     cells: <DataCell>[
-                      DataCell(Text(data[index]["IDCATEGORIA"].toString())),
                       DataCell(Text(data[index]["DESCRIZIONE"].toString())),
                       DataCell(Text(
                           '${data[index]["ANNO1"]}-${data[index]["ANNO2"]}')),
-                      if (data[index]["KATA"].toString() == '1')
-                        const DataCell(Text("KATA"))
-                      else
-                        const DataCell(Text("KUMITE")),
-                      if (data[index]["KATA"].toString() == '1')
-                        const DataCell(Text("-"))
-                      else
-                        DataCell(Text(
-                            '${data[index]["PESOINIZIALE"]}-${data[index]["PESOFINALE"]}')),
                       if (data[index]["CINTURADA"] != data[index]["CINTURAA"])
                         DataCell(Text(
                             '${data[index]["CINTURADASTR"]}-${data[index]["CINTURAASTR"]}'))
                       else
                         DataCell(Text('${data[index]["CINTURADASTR"]}')),
                       DataCell(Text(data[index]["SESSO"].toString())),
+                      DataCell(Text(data[index]["NOTE"].toString())),
                     ],
                   ),
                 ),

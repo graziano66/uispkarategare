@@ -3,22 +3,22 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
-import 'package:uispkarategare/sql.dart';
+import 'package:uispkarategare/database/sql.dart';
 import 'package:uispkarategare/print/kata.dart';
 
-class Gare3Page extends StatefulWidget {
-  const Gare3Page({Key? key, required this.title}) : super(key: key);
+class KumitePage extends StatefulWidget {
+  const KumitePage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  State<Gare3Page> createState() => _Gare3PageState();
+  State<KumitePage> createState() => _KumitePageState();
 }
 
-class _Gare3PageState extends State<Gare3Page> {
+class _KumitePageState extends State<KumitePage> {
   @override
   void initState() {
     super.initState();
     getDataCintureList();
-    getDataGare3();
+    getDataKumite();
   }
 
   @override
@@ -30,9 +30,9 @@ class _Gare3PageState extends State<Gare3Page> {
         actions: <Widget>[
           ElevatedButton.icon(
             onPressed: () {
-              elaborazioneCategorie();
+              elaborazioneCategorieKumite();
               setState(() {
-                getDataGare3();
+                getDataKumite();
               });
             },
             icon: const Icon(
@@ -48,9 +48,9 @@ class _Gare3PageState extends State<Gare3Page> {
           ),
           ElevatedButton.icon(
             onPressed: () {
-              salvaCategorie();
+              salvaKumite();
               setState(() {
-                getDataGare3();
+                getDataKumite();
               });
             },
             icon: const Icon(
@@ -66,28 +66,14 @@ class _Gare3PageState extends State<Gare3Page> {
           ),
           ElevatedButton.icon(
             onPressed: () {
-              int totaleIScrittiKata = 0;
               int totaleIScrittiKumite = 0;
-              bool isKata = true;
               for (var element in data) {
-                if (element['CFSOCIETA'].toString() == '*') {
-                  if (element['KATA'].toString() == '1') {
-                    isKata = true;
-                  }
-                  if (element['KUMITE'].toString() == '1') {
-                    isKata = false;
-                  }
-                } else {
-                  if (isKata) {
-                    totaleIScrittiKata += 1;
-                  }
-                  if (!isKata) {
-                    totaleIScrittiKumite += 1;
-                  }
+                if (element['CFSOCIETA'].toString() != '*') {
+                  totaleIScrittiKumite += 1;
                 }
               }
               showMessage(context, 'ISCRITTI',
-                  'TOTALI ISCRITTI Kata=$totaleIScrittiKata Kumite=$totaleIScrittiKumite');
+                  'TOTALI ISCRITTI Kumite=$totaleIScrittiKumite');
             },
             icon: const Icon(
               Icons.calculate,
@@ -149,43 +135,12 @@ class _Gare3PageState extends State<Gare3Page> {
 //              print('ok');
               print('INIZIO STAMPE QUADRI');
 
-              createPdfStart();
-              List pdfDataList = [];
-              bool inPage = false;
-              for (var element in data) {
-//                if (element['KATA'] == 1) {
-                if (element['CFSOCIETA'] == '*') {
-                  if (inPage) {
-//                    print('create page');
-                    createPdfAddPageTestata();
-                    createPdfAddPage(pdfDataList);
-                    pdfDataList.clear();
-                  }
-//                  print('ok1');
-                  inPage = true;
-//                  print('ok2');
-                  pdfGara = element['SOCIETA'].toString();
-//                  print(pdfGara);
-                  pdfData = element['SOCIETA2'].toString();
-//                  print(pdfData);
-                  pdfCitta = element['COGNOME'].toString();
-//                  print(pdfCitta);
-                  pdfCategoria = element['NOME'].toString();
-//                  print(pdfCategoria);
-                } else {
-//                  print('ok7');
-                  pdfDataList.add(element);
-//                  print('ok8');
-                }
-                s += '\r';
-//                }
-//              print('ok9');
-              }
-              createPdfAddPageTestata();
-              createPdfAddPage(pdfDataList);
-//              print('ok0');
-              createPdfEnd();
+              Kata stampa = Kata();
+              stampa.stampa();
+
               print('INIZIO STAMPE ELENCHI');
+
+/*
 
               createElencoPdfStart();
               print('INIZIO STAMPE ELENCHI 2');
@@ -230,6 +185,7 @@ class _Gare3PageState extends State<Gare3Page> {
               print('INIZIO STAMPE ELENCHI fine 3');
               showMessage(
                   context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
+*/
             },
             icon: const Icon(
               Icons.print,
@@ -259,14 +215,7 @@ class _Gare3PageState extends State<Gare3Page> {
               itemBuilder: (context, index) {
 //          final item = data[index];
 //                print(data[index]);
-                String s = '---';
-                if (data[index]['KATA'].toString() == '1') {
-                  s = 'KATA - ';
-                }
-                if (data[index]['KUMITE'].toString() == '1') {
-                  s = 'KUMITE - ';
-                }
-                s += data[index]['SOCIETA'].toString();
+                String s = data[index]['SOCIETA'].toString();
                 if (data[index]['CFSOCIETA'].toString() == '*') {
                   return ListTile(
                     key: ValueKey(data[index]['ID'].toString()),
@@ -291,9 +240,9 @@ class _Gare3PageState extends State<Gare3Page> {
                   return ListTile(
                     key: ValueKey(data[index]['ID'].toString()),
                     title: Text(
-                        '${data[index]['COGNOME']} ${data[index]['NOME']} ${data[index]['SOCIETA']} (${data[index]['SOCIETA2']})'),
+                        '${data[index]['COGNOME']} ${data[index]['NOME']} - ${data[index]['SOCIETA']} (${data[index]['SOCIETA2']})'),
                     subtitle: Text(
-                        '${data[index]['SESSO']} ${data[index]['CINTURA']} ${data[index]['IDCINTURA']} ${data[index]['ANNO']} Kata=${data[index]['KATA']} Kumite=${data[index]['KUMITE']} Peso=${data[index]['PESO']}'),
+                        '${data[index]['ANNO']} - ${data[index]['SESSO']} - Peso=${data[index]['PESO']} - ${data[index]['CINTURA']} - ${data[index]['IDCINTURA']} '),
                   );
                 }
               },

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
-import 'package:uispkarategare/sql.dart';
 import 'package:uispkarategare/pages/homepage.dart';
 import 'package:uispkarategare/pages/cinture.dart';
-import 'package:uispkarategare/pages/categorie.dart';
-import 'package:uispkarategare/pages/categorie2.dart';
-import 'package:uispkarategare/pages/gare.dart';
+import 'package:uispkarategare/pages/cat_kata.dart';
+import 'package:uispkarategare/pages/cat_kumite.dart';
+import 'package:uispkarategare/pages/iscritti.dart';
+import 'package:uispkarategare/pages/kata.dart';
+import 'package:uispkarategare/pages/kumite.dart';
 
 class BarraLaterale extends StatefulWidget {
   const BarraLaterale({Key? key}) : super(key: key);
@@ -25,44 +26,9 @@ class _BarraLateraleState extends State<BarraLaterale> {
               height: 8,
             ),
             drawerMenuItem(
-              text: 'UISP Home',
+              text: 'Home',
               icon: Icons.home,
               onClicked: () => selectedItem(context, 0),
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButton<int>(
-                value: annoInUso,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                onChanged: (int? value) {
-                  setState(() {
-                    annoInUso = value!;
-                    annoInUsoStr = 'SCEGLI REGOLAMENTO';
-                    if (annoInUso == 1) annoInUsoStr = '22-23 Nazionale';
-                    if (annoInUso == 2) annoInUsoStr = '22-23 Arcisate';
-                  });
-                },
-                items: const [
-                  DropdownMenuItem(value: 0, child: Text('SCEGLI REGOLAMENTO')),
-                  DropdownMenuItem(value: 1, child: Text('22-23 Nazionale')),
-                  DropdownMenuItem(value: 2, child: Text('22-23 Arcisate')),
-                ],
-              ),
-            ),
-            drawerMenuItem(
-              text: 'REGOLAMENTI DISPONIBILI',
-              icon: Icons.calendar_month,
-              onClicked: () => selectedItem(context, 1),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            drawerMenuItem(
-              text: 'Categorie',
-              icon: Icons.list,
-              onClicked: () => selectedItem(context, 2),
             ),
             const SizedBox(
               height: 8,
@@ -70,15 +36,47 @@ class _BarraLateraleState extends State<BarraLaterale> {
             drawerMenuItem(
               text: 'Cinture',
               icon: Icons.bookmark,
+              onClicked: () => selectedItem(context, 1),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            drawerMenuItem(
+              text: 'Cat. Kata',
+              icon: Icons.list,
+              onClicked: () => selectedItem(context, 2),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            drawerMenuItem(
+              text: 'Cat. Kumite',
+              icon: Icons.list,
               onClicked: () => selectedItem(context, 3),
             ),
             const SizedBox(
               height: 8,
             ),
             drawerMenuItem(
-              text: 'Gare',
+              text: 'Iscritti',
               icon: Icons.group,
               onClicked: () => selectedItem(context, 4),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            drawerMenuItem(
+              text: 'Kata',
+              icon: Icons.group,
+              onClicked: () => selectedItem(context, 5),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            drawerMenuItem(
+              text: 'Kumite',
+              icon: Icons.group,
+              onClicked: () => selectedItem(context, 6),
             ),
             const SizedBox(
               height: 8,
@@ -121,28 +119,42 @@ void selectedItem(BuildContext context, int index) {
     case 1:
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-        return const CategoriePage(
-            title: 'D.O. UISP - Gestione gare - Anni disponibili');
+        return const CinturePage(title: 'D.O. UISP - Gestione gare - Cinture');
       }));
-
       break;
     case 2:
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-        return Categorie2Page(
-            title: 'D.O. UISP - Gestione gare - Categorie $annoInUsoStr');
+        return const CategorieKataPage(
+            title: 'D.O. UISP - Gestione gare - Categorie KATA');
       }));
       break;
     case 3:
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-        return const CinturePage(title: 'D.O. UISP - Gestione gare - Cinture');
+        return const CategorieKumitePage(
+            title: 'D.O. UISP - Gestione gare - Categorie KUMITE');
       }));
       break;
     case 4:
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-        return const GarePage(title: 'D.O. UISP - Gestione gare');
+        return const IscrittiPage(
+            title: 'D.O. UISP - Gestione gare - Elenco Iscritti');
+      }));
+      break;
+    case 5:
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+        return const KataPage(
+            title: 'D.O. UISP - Gestione gare - Tabelloni KATA');
+      }));
+      break;
+    case 6:
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+        return const KumitePage(
+            title: 'D.O. UISP - Gestione gare - Tabelloni KUMITE');
       }));
       break;
   }

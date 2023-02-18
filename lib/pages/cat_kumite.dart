@@ -1,33 +1,48 @@
-//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/database/sql.dart';
 
-class CinturePage extends StatefulWidget {
-  const CinturePage({Key? key, required this.title}) : super(key: key);
+class CategorieKumitePage extends StatefulWidget {
+  const CategorieKumitePage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  State<CinturePage> createState() => _CinturePageState();
+  State<CategorieKumitePage> createState() => _CategorieKumitePageState();
 }
 
-class _CinturePageState extends State<CinturePage> {
+class _CategorieKumitePageState extends State<CategorieKumitePage> {
   @override
   void initState() {
     super.initState();
-    getDataCinture();
+    getDataCategorieKumite();
   }
 
   @override
   Widget build(BuildContext context) {
-//    print('BUILD');
-//    print(data);
-//    print(numeroRighe);
     return Scaffold(
       drawer: const BarraLaterale(),
       appBar: AppBar(
         title: Text(widget.title),
+/*
+        actions: <Widget>[
+          ElevatedButton.icon(
+            onPressed: () {
+              showMessage(context, 'CATEGORIE', 'STAMPA');
+            },
+            icon: const Icon(
+              Icons.print,
+              size: 24.0,
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              //foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            label: const Text('Stampa'),
+          ),
+        ],
+*/
       ),
       body: SafeArea(
         child: Row(
@@ -43,15 +58,27 @@ class _CinturePageState extends State<CinturePage> {
                 columnSpacing: 10,
                 columns: const <DataColumn>[
                   DataColumn2(
-                    fixedWidth: 50,
-                    label: Text('ID'),
+                    fixedWidth: 300,
+                    label: Text('DESCRIZIONE'),
                   ),
                   DataColumn2(
                     fixedWidth: 100,
-                    label: Text('DESCRIZIONE'),
+                    label: Text('ANNI'),
                   ),
                   DataColumn2(
-                    label: Text('DESCRIZIONE'),
+                    fixedWidth: 80,
+                    label: Text('PESO'),
+                  ),
+                  DataColumn2(
+                    fixedWidth: 150,
+                    label: Text('CINTURA'),
+                  ),
+                  DataColumn2(
+                    fixedWidth: 80,
+                    label: Text('SESSO'),
+                  ),
+                  DataColumn2(
+                    label: Text('NOTE'),
                   ),
                 ],
                 rows: List<DataRow>.generate(
@@ -73,8 +100,17 @@ class _CinturePageState extends State<CinturePage> {
                       return null; // Use default value for other states and odd rows.
                     }),
                     cells: <DataCell>[
-                      DataCell(Text(data[index]["ID"].toString())),
                       DataCell(Text(data[index]["DESCRIZIONE"].toString())),
+                      DataCell(Text(
+                          '${data[index]["ANNO1"]}-${data[index]["ANNO2"]}')),
+                      DataCell(Text(
+                          '${data[index]["PESOINIZIALE"]}-${data[index]["PESOFINALE"]}')),
+                      if (data[index]["CINTURADA"] != data[index]["CINTURAA"])
+                        DataCell(Text(
+                            '${data[index]["CINTURADASTR"]}-${data[index]["CINTURAASTR"]}'))
+                      else
+                        DataCell(Text('${data[index]["CINTURADASTR"]}')),
+                      DataCell(Text(data[index]["SESSO"].toString())),
                       DataCell(Text(data[index]["NOTE"].toString())),
                     ],
                   ),
