@@ -19,6 +19,7 @@ int numeroRigheCategorie = 0;
 
 int idGaraSelezionata = 0;
 
+<<<<<<< HEAD:lib/database/sql.dart
 // FILE PER LA GESTIONE DEL DATABASE
 
 void eseguiSql(String s) {
@@ -32,6 +33,11 @@ void eseguiSql(String s) {
 getDataGare() {
   sql.Database db = sql.sqlite3.open(database);
   final sql.ResultSet resultSet = db.select('SELECT * FROM GARE');
+=======
+getDataGara() {
+  sql.Database db = sql.sqlite3.open(database);
+  final sql.ResultSet resultSet = db.select('SELECT * FROM GARE', []);
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39:lib/sql.dart
   data.clear();
   numeroRighe = 0;
   for (var element in resultSet) {
@@ -41,6 +47,7 @@ getDataGare() {
   db.dispose();
 }
 
+<<<<<<< HEAD:lib/database/sql.dart
 saveDataGare() {
   sql.Database db = sql.sqlite3.open(database);
   final stmt = db.prepare(
@@ -57,6 +64,8 @@ saveDataGare() {
 
 // GESTIONE TABELLA CINTURE
 
+=======
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39:lib/sql.dart
 getDataCinture() {
   sql.Database db = sql.sqlite3.open(database);
   final sql.ResultSet resultSet = db.select('SELECT * FROM CINTURE', []);

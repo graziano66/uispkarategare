@@ -6,9 +6,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/global.dart';
+<<<<<<< HEAD
 import 'package:uispkarategare/database/sql.dart';
 import 'package:uispkarategare/database/load_kata.dart';
 import 'package:uispkarategare/database/load_kumite.dart';
+=======
+import 'package:uispkarategare/sql.dart';
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -26,7 +30,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     getDataGare();
+=======
+    getDataGara();
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39
   }
 
   @override
@@ -46,12 +54,20 @@ class _HomePageState extends State<HomePage> {
               ),
             Expanded(
               flex: 5,
+<<<<<<< HEAD
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(0),
+=======
+//              child: SingleChildScrollView(
+//                padding: const EdgeInsets.all(defaultPadding),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+<<<<<<< HEAD
                     Container(
                       color: Colors.lightBlueAccent,
                       child: Row(
@@ -172,6 +188,128 @@ class _HomePageState extends State<HomePage> {
                             ElevatedButton(
                                 onPressed: () {},
                                 child: const Text('LOGO DESTRA')),
+=======
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset('assets/images/logo.png'),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                child: Text('MODIFICA  GARA')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('DATA ' + data[0]['DATA'].toString()),
+                            Text('DESCRIZIONE GARA' +
+                                data[0]['DESCRIZIONE'].toString()),
+                            Text('CITTA GARA' + data[0]['CITTA'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {}, child: Text('REGOLE KATA')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('KATA ' + data[0]['KATA'].toString()),
+                            Text('KATA2 ' + data[0]['KATA2'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {}, child: Text('REGOLE KUMITE')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('KUMITE ' + data[0]['KUMITE'].toString()),
+                            Text('KUMITE2 ' + data[0]['KUMITE2'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {}, child: Text('LOGO1')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(data[0]['LOGO1'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {}, child: Text('LOGO2')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(data[0]['LOGO2'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 200,
+                            child: ElevatedButton(
+                                onPressed: () {}, child: Text('LOGO3')),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(data[0]['LOGO3'].toString()),
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39
                           ],
                         ),
                       ],

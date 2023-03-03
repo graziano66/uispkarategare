@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
+<<<<<<< HEAD
 import 'package:uispkarategare/database/sql.dart';
+=======
+import 'package:uispkarategare/sql.dart';
+>>>>>>> e5dd9ef2874856151ce13a4a785ce42cb2e3bb39
 //import 'package:flutter/material.dart';
 
 //class Kata extends StatelessWidget{

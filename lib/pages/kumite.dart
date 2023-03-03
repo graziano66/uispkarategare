@@ -5,6 +5,7 @@ import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/database/sql.dart';
 import 'package:uispkarategare/print/kata.dart';
+import 'package:uispkarategare/print/kataOld.dart';
 
 class KumitePage extends StatefulWidget {
   const KumitePage({Key? key, required this.title}) : super(key: key);
