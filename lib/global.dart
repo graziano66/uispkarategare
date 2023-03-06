@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uispkarategare/main.dart';
 
 const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);
@@ -29,6 +30,22 @@ void showDBError(BuildContext context, String error) {
 void showMessage(BuildContext context, String titolo, String res) {
   showDialog<String>(
     context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text(titolo),
+      content: Text(res),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+}
+
+void showMessage2(String titolo, String res) {
+  showDialog<String>(
+    context: navigatorKey.currentContext!,
     builder: (BuildContext context) => AlertDialog(
       title: Text(titolo),
       content: Text(res),

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/database/sql.dart';
-import 'package:uispkarategare/print/kata.dart';
+import 'package:uispkarategare/print/prkatatabelloni.dart';
+import 'package:uispkarategare/print/prkatataelenchi.dart';
 
 class KataPage extends StatefulWidget {
   const KataPage({Key? key, required this.title}) : super(key: key);
@@ -90,9 +91,9 @@ class _KataPageState extends State<KataPage> {
             onPressed: () async {
               final directory3 = await getDownloadsDirectory();
 //              print(directory3!.path);
-              File f = File('${directory3!.path}/output.csv');
+//              File f = File('${directory3!.path}/output.csv');
+              File f = File('kata-elenco.csv');
               //f.writeAsString('contents');
-              print('INIZIO STAMPE');
               String s = '';
               int categorieConteggio = 1;
               for (var element in data) {
@@ -133,59 +134,10 @@ class _KataPageState extends State<KataPage> {
               }
               f.writeAsString(s);
 //              print('ok');
-              print('INIZIO STAMPE QUADRI');
-
-              Kata stampa = Kata();
-              stampa.stampa();
-
-              print('INIZIO STAMPE ELENCHI');
-
-/*
-
-              createElencoPdfStart();
-              print('INIZIO STAMPE ELENCHI 2');
-              pdfDataList.clear();
-              inPage = false;
-              for (var element in data) {
-                if (element['CFSOCIETA'] == '*') {
-                  if (inPage) {
-//                    print('create page');
-                    createElencoPdfAddPage(pdfDataList);
-                    pdfDataList.clear();
-                  }
-//                  print('ok1');
-                  inPage = true;
-//                  print('ok2');
-                  pdfGara = element['SOCIETA'].toString();
-//                  print(pdfGara);
-                  pdfData = element['SOCIETA2'].toString();
-//                  print(pdfData);
-                  pdfCitta = element['COGNOME'].toString();
-//                  print(pdfCitta);
-                  pdfCategoria = element['NOME'].toString();
-//                  print(pdfCategoria);
-                  if (element['KATA'] == 1) {
-                    pdfTipo = 'KATA';
-                  } else {
-                    pdfTipo = 'KUMITE';
-                  }
-                } else {
-//                  print('ok7');
-                  pdfDataList.add(element);
-//                  print('ok8');
-                }
-                s += '\r';
-//              print('ok9');
-              }
-              print('INIZIO STAMPE ELENCHI fine');
-              createElencoPdfAddPage(pdfDataList);
-//              print('ok0');
-              print('INIZIO STAMPE ELENCHI fine 2');
-              createElencoPdfEnd();
-              print('INIZIO STAMPE ELENCHI fine 3');
-              showMessage(
-                  context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
-*/
+              PrKataTabelloni stampa1 = PrKataTabelloni();
+              stampa1.stampa();
+              PrKataElenchi stampa2 = PrKataElenchi();
+              stampa2.stampa();
             },
             icon: const Icon(
               Icons.print,

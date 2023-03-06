@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/pages/homepage.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(const MyApp());
 }

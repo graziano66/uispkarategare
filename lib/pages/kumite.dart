@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
 import 'package:uispkarategare/database/sql.dart';
-import 'package:uispkarategare/print/kata.dart';
+import 'package:uispkarategare/print/prkumiteelenchi.dart';
 //import 'package:uispkarategare/print/kataOld.dart';
 
 class KumitePage extends StatefulWidget {
@@ -136,7 +136,7 @@ class _KumitePageState extends State<KumitePage> {
 //              print('ok');
               print('INIZIO STAMPE QUADRI');
 
-              Kata stampa = Kata();
+              PrKumiteElenchi stampa = PrKumiteElenchi();
               stampa.stampa();
 
               print('INIZIO STAMPE ELENCHI');

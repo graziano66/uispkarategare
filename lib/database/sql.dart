@@ -1,4 +1,5 @@
 import 'package:sqlite3/sqlite3.dart' as sql;
+import 'package:uispkarategare/global.dart';
 
 String database = 'uispkarategare.db';
 String categorie2id = '0';
@@ -310,7 +311,7 @@ kataAdd(saveData) {
     stmt.dispose();
     db.dispose();
   } catch (ex) {
-    print(ex);
+    showMessage2('Database Error', ex.toString());
   } finally {
 //    print('finally block executed');
   }
@@ -422,7 +423,7 @@ kumiteAdd(saveData) {
     stmt.dispose();
     db.dispose();
   } catch (ex) {
-    print(ex);
+    showMessage2('Database Error', ex.toString());
   } finally {
 //    print('finally block executed');
   }
