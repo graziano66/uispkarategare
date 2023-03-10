@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image(
-                          image: FileImage(File('logo2.png')),
+                          image: FileImage(File('logo1.png')),
                           width: 200,
                         ),
                         ElevatedButton(
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image(
-                          image: FileImage(File('logo1.png')),
+                          image: FileImage(File('logo2.png')),
                           width: 200,
                         ),
                         ElevatedButton(
@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image(
-                          image: FileImage(File('logo3.png')),
+                          image: FileImage(File('logo3.jpg')),
                           width: 200,
                         ),
                         ElevatedButton(

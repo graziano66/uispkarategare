@@ -22,39 +22,49 @@ class PrKataTabelloni {
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('UISP Area Nazionale Discipline Orientali'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('UISP Area Nazionale Discipline Orientali'),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('GARA: $_gara\nDATA: $_data'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('GARA: $_gara\nDATA: $_data'),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('CITTA: $_citta'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('CITTA: $_citta'),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('CATEGORIA: $_categoria'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('CATEGORIA: $_categoria'),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('Tabellone Gara KATA N.'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('Tabellone Gara KATA N.'),
+              ))),
     ]));
   }
 
@@ -73,32 +83,49 @@ class PrKataTabelloni {
       )),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('COGNOME\nNOME'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('COGNOME\nNOME'),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('1° KATA   NOTE'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '\n\n1° KATA            NOTE',
+                  textAlign: TextAlign.center,
+                ),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('2° KATA   NOTE'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '\n\n2° KATA            NOTE',
+                  textAlign: TextAlign.center,
+                ),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('3° KATA   NOTE'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '\n\n3° KATA            NOTE',
+                  textAlign: TextAlign.center,
+                ),
+              ))),
     ]));
   }
 
@@ -258,18 +285,28 @@ class PrKataTabelloni {
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('$club\n$citta'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '$club\n$citta',
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
+                ),
+              ))),
       Expanded(
           child: Container(
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('$cognome\n$nome'),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '$cognome\n$nome',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                ),
+              ))),
       kataBlock(),
       kataBlock(),
       kataBlock(),
@@ -341,7 +378,7 @@ class PrKataTabelloni {
                 ),
                 Text(
                     textAlign: TextAlign.center,
-                    'AREA DISCIPLINE ORIENTALI UISP\nENTE DI PROMOZIONE SPORTIVA\nICONOSCIUTO DAL C.O.N.I.\nVia Riva di Reno 75 III - 40121 Bologna\ne-mail disc.orientali@uisp.it'),
+                    'AREA DISCIPLINE ORIENTALI UISP\nENTE DI PROMOZIONE SPORTIVA\nRICONOSCIUTO DAL C.O.N.I.\nVia Riva di Reno 75 III - 40121 Bologna\ne-mail disc.orientali@uisp.it'),
                 Container(
                   width: 100,
                   height: 100,
@@ -728,11 +765,14 @@ class PrKataTabelloni {
             children: <Widget>[
               Expanded(
                   child: Container(
-                foregroundDecoration: BoxDecoration(
-                  border: Border.all(width: 1),
-                ),
-                child: Text('Numero dei partecipanti\nNumero Società presenti'),
-              )),
+                      foregroundDecoration: BoxDecoration(
+                        border: Border.all(width: 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                            'Numero dei partecipanti\nNumero Società presenti'),
+                      ))),
               Expanded(
                   child: Container(
                 foregroundDecoration: BoxDecoration(
