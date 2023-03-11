@@ -7,6 +7,7 @@ import 'package:uispkarategare/pages/cat_kumite.dart';
 import 'package:uispkarategare/pages/iscritti.dart';
 import 'package:uispkarategare/pages/kata.dart';
 import 'package:uispkarategare/pages/kumite.dart';
+import 'package:uispkarategare/print/prkatatabellonevuoto.dart';
 
 class BarraLaterale extends StatefulWidget {
   const BarraLaterale({Key? key}) : super(key: key);
@@ -77,6 +78,14 @@ class _BarraLateraleState extends State<BarraLaterale> {
               text: 'Kumite',
               icon: Icons.group,
               onClicked: () => selectedItem(context, 6),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            drawerMenuItem(
+              text: 'Stampa Kata Vuoto',
+              icon: Icons.group,
+              onClicked: () => selectedItem(context, 7),
             ),
             const SizedBox(
               height: 8,
@@ -156,6 +165,11 @@ void selectedItem(BuildContext context, int index) {
         return const KumitePage(
             title: 'D.O. UISP - Gestione gare - Tabelloni KUMITE');
       }));
+      break;
+    case 7:
+      PrKataTabelloneVuoto stampa = PrKataTabelloneVuoto();
+      stampa.stampa();
+
       break;
   }
 }

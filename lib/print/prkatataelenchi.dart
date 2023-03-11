@@ -27,19 +27,29 @@ class PrKataElenchi {
       club = pdfDataList[x]['SOCIETA'].toString();
 //      citta = pdfDataList[x]['SOCIETA2'].toString();
       cognome = pdfDataList[x]['COGNOME'].toString();
-      nome = pdfDataList[x]['NOME'].toString();
+      //nome = pdfDataList[x]['NOME'].toString();
     }
-    return Expanded(
-        child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+    return Row(children: [
       Expanded(
           child: Container(
-        child: Text('$club '),
-      )),
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('$club'),
+              ))),
       Expanded(
           child: Container(
-        child: Text('$cognome $nome'),
-      )),
-    ]));
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+//                child: Text('$cognome $nome'),
+                child: Text('$cognome'),
+              ))),
+    ]);
   }
 
   Future<Page> pagina() async {
@@ -59,10 +69,44 @@ class PrKataElenchi {
       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       textAlign: TextAlign.center,
     ));
-    line.add(Spacer());
-    for (var i = 0; i <= 15; i++) {
+
+//    line.add(Text(
+//      '.',
+//      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+//      textAlign: TextAlign.center,
+//    ));
+
+    line.add(Row(children: [
+      Expanded(
+          child: Container(
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Club',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )))),
+      Expanded(
+          child: Container(
+              foregroundDecoration: BoxDecoration(
+                border: Border.all(width: 1),
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Cognome e Nome',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )))),
+    ]));
+
+    int i = 0;
+    for (var element in pdfDataList) {
       line.add(await kataLine(i));
+      i++;
     }
+
     return Page(
       pageTheme: const PageTheme(
         pageFormat: PdfPageFormat.a4,
@@ -73,20 +117,15 @@ class PrKataElenchi {
 //        ),
       ),
       build: (context) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 0),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: Row(children: [
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-//                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: line,
-              )),
-            ]),
-          ),
+        return //Container(
+//          width: double.infinity,
+//          height: double.infinity,
+            //  child:
+            Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+//            crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: line,
+//          ),
         );
       },
     );
