@@ -1,5 +1,5 @@
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+//import 'dart:io';
+//import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
@@ -89,104 +89,8 @@ class _KumitePageState extends State<KumitePage> {
           ),
           ElevatedButton.icon(
             onPressed: () async {
-              final directory3 = await getDownloadsDirectory();
-//              print(directory3!.path);
-              File f = File('${directory3!.path}/output.csv');
-              //f.writeAsString('contents');
-              print('INIZIO STAMPE');
-              String s = '';
-              int categorieConteggio = 1;
-              for (var element in data) {
-                if (element['CFSOCIETA'] == '*') {
-                  s += '===Categoria N. $categorieConteggio ==============';
-                  categorieConteggio += 1;
-                  s += '\r';
-                  s += element['SOCIETA'];
-                  s += ',';
-                  s += element['SOCIETA2'];
-                  s += ',';
-                  s += element['COGNOME'];
-                  s += ',';
-                  s += element['NOME'];
-                  if (element['KUMITE'] == '1') {
-                    s += ',';
-                    s += element['NOTE'];
-                  }
-                } else {
-                  s += element['SOCIETA'];
-                  s += ',';
-                  s += element['SOCIETA2'];
-                  s += ',';
-                  s += element['COGNOME'];
-                  s += ',';
-                  s += element['NOME'];
-                  s += ',';
-                  s += element['SESSO'];
-                  s += ',';
-                  s += element['ANNO'].toString();
-                  s += ',';
-                  s += element['CINTURA'];
-                  s += ', KG ';
-                  s += element['PESO'].toString();
-                }
-//                s += element.toString();
-                s += '\r';
-              }
-              f.writeAsString(s);
-//              print('ok');
-              print('INIZIO STAMPE QUADRI');
-
               PrKumiteElenchi stampa = PrKumiteElenchi();
               stampa.stampa();
-
-              print('INIZIO STAMPE ELENCHI');
-
-/*
-
-              createElencoPdfStart();
-              print('INIZIO STAMPE ELENCHI 2');
-              pdfDataList.clear();
-              inPage = false;
-              for (var element in data) {
-                if (element['CFSOCIETA'] == '*') {
-                  if (inPage) {
-//                    print('create page');
-                    createElencoPdfAddPage(pdfDataList);
-                    pdfDataList.clear();
-                  }
-//                  print('ok1');
-                  inPage = true;
-//                  print('ok2');
-                  pdfGara = element['SOCIETA'].toString();
-//                  print(pdfGara);
-                  pdfData = element['SOCIETA2'].toString();
-//                  print(pdfData);
-                  pdfCitta = element['COGNOME'].toString();
-//                  print(pdfCitta);
-                  pdfCategoria = element['NOME'].toString();
-//                  print(pdfCategoria);
-                  if (element['KATA'] == 1) {
-                    pdfTipo = 'KATA';
-                  } else {
-                    pdfTipo = 'KUMITE';
-                  }
-                } else {
-//                  print('ok7');
-                  pdfDataList.add(element);
-//                  print('ok8');
-                }
-                s += '\r';
-//              print('ok9');
-              }
-              print('INIZIO STAMPE ELENCHI fine');
-              createElencoPdfAddPage(pdfDataList);
-//              print('ok0');
-              print('INIZIO STAMPE ELENCHI fine 2');
-              createElencoPdfEnd();
-              print('INIZIO STAMPE ELENCHI fine 3');
-              showMessage(
-                  context, 'ESPORTAZIONE FILE', 'output.csv in Downloads');
-*/
             },
             icon: const Icon(
               Icons.print,
@@ -229,7 +133,7 @@ class _KumitePageState extends State<KumitePage> {
                     leading: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        print('edit');
+//                        print('edit');
                       },
                     ),
                     //isThreeLine: true,

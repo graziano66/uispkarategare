@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+//import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:uispkarategare/global.dart';
 import 'package:uispkarategare/drawer.dart';
@@ -89,7 +89,7 @@ class _KataPageState extends State<KataPage> {
           ),
           ElevatedButton.icon(
             onPressed: () async {
-              final directory3 = await getDownloadsDirectory();
+//              final directory3 = await getDownloadsDirectory();
 //              print(directory3!.path);
 //              File f = File('${directory3!.path}/output.csv');
               File f = File('kata-elenco.csv');
@@ -177,7 +177,7 @@ class _KataPageState extends State<KataPage> {
                     leading: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        print('edit');
+//                        print('edit');
                       },
                     ),
                     //isThreeLine: true,

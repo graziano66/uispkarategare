@@ -67,46 +67,18 @@ class _IscrittiPageState extends State<IscrittiPage> {
                     .transform(const CsvToListConverter())
                     .toList();
 // CONTROLLO ERRORI
+                bool isFirstLine = true;
+
                 for (var f in fields) {
-                  if ((f[5].toString().toUpperCase() != 'M') &&
-                      (f[5].toString().toUpperCase() != 'F')) {
-                    errore =
-                        'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Sesso errato';
-                    // ignore: use_build_context_synchronously
-                    showMessage(context, 'ERRORE', errore);
-                    numeroErrori += 1;
-                  }
-                  int idCintura = -1;
-                  for (var c in dataCinture) {
-                    if (c['DESCRIZIONE'].toString().toUpperCase() ==
-                        f[6].toString().toUpperCase()) {
-                      idCintura = c['ID'];
+                  if (!isFirstLine) {
+                    if ((f[5].toString().toUpperCase() != 'M') &&
+                        (f[5].toString().toUpperCase() != 'F')) {
+                      errore =
+                          'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Sesso errato';
+                      // ignore: use_build_context_synchronously
+                      showMessage(context, 'ERRORE', errore);
+                      numeroErrori += 1;
                     }
-                    if (c['NOTE'].toString().toUpperCase() ==
-                        f[6].toString().toUpperCase()) {
-                      idCintura = c['ID'];
-                    }
-                  }
-                  if (idCintura == -1) {
-                    errore =
-                        'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Cintura errato';
-                    // ignore: use_build_context_synchronously
-                    showMessage(context, 'ERRORE', errore);
-                    numeroErrori += 1;
-                  }
-                }
-// INSERISCO SE CSV SENZA ERRORI
-                if (numeroErrori == 0) {
-                  for (var f in fields) {
-                    Map<String, String> saveData = {};
-                    saveData['IDGARA'] = idGaraSelezionata.toString();
-                    saveData['CFSOCIETA'] = f[0].toString().toUpperCase();
-                    saveData['SOCIETA'] = f[1].toString().toUpperCase();
-                    saveData['SOCIETA2'] = f[2].toString().toUpperCase();
-                    saveData['COGNOME'] = f[3].toString().toUpperCase();
-                    saveData['NOME'] = f[4].toString().toUpperCase();
-                    saveData['SESSO'] = f[5].toString().toUpperCase();
-                    saveData['CINTURA'] = f[6].toString().toUpperCase();
                     int idCintura = -1;
                     for (var c in dataCinture) {
                       if (c['DESCRIZIONE'].toString().toUpperCase() ==
@@ -118,17 +90,54 @@ class _IscrittiPageState extends State<IscrittiPage> {
                         idCintura = c['ID'];
                       }
                     }
-                    saveData['IDCINTURA'] = idCintura.toString();
-                    saveData['ANNO'] = f[7].toString().toUpperCase();
-                    saveData['KATA'] = f[8].toString().toUpperCase();
-                    saveData['KUMITE'] = f[9].toString().toUpperCase();
-                    saveData['PESO'] = f[10].toString().toUpperCase();
-                    saveData['CF'] = f[11].toString().toUpperCase();
-                    saveData['NRTESSERA'] = f[12].toString().toUpperCase();
-                    saveData['NOTE'] = '';
+                    if (idCintura == -1) {
+                      errore =
+                          'Cognome:${f[3].toString().toUpperCase()} Nome:${f[4].toString().toUpperCase()} Campo Cintura errato';
+                      // ignore: use_build_context_synchronously
+                      showMessage(context, 'ERRORE', errore);
+                      numeroErrori += 1;
+                    }
+                  }
+                  isFirstLine = false;
+                }
+// INSERISCO SE CSV SENZA ERRORI
+                if (numeroErrori == 0) {
+                  isFirstLine = true;
+                  for (var f in fields) {
+                    if (!isFirstLine) {
+                      Map<String, String> saveData = {};
+                      saveData['IDGARA'] = idGaraSelezionata.toString();
+                      saveData['CFSOCIETA'] = f[0].toString().toUpperCase();
+                      saveData['SOCIETA'] = f[1].toString().toUpperCase();
+                      saveData['SOCIETA2'] = f[2].toString().toUpperCase();
+                      saveData['COGNOME'] = f[3].toString().toUpperCase();
+                      saveData['NOME'] = f[4].toString().toUpperCase();
+                      saveData['SESSO'] = f[5].toString().toUpperCase();
+                      saveData['CINTURA'] = f[6].toString().toUpperCase();
+                      int idCintura = -1;
+                      for (var c in dataCinture) {
+                        if (c['DESCRIZIONE'].toString().toUpperCase() ==
+                            f[6].toString().toUpperCase()) {
+                          idCintura = c['ID'];
+                        }
+                        if (c['NOTE'].toString().toUpperCase() ==
+                            f[6].toString().toUpperCase()) {
+                          idCintura = c['ID'];
+                        }
+                      }
+                      saveData['IDCINTURA'] = idCintura.toString();
+                      saveData['ANNO'] = f[7].toString().toUpperCase();
+                      saveData['KATA'] = f[8].toString().toUpperCase();
+                      saveData['KUMITE'] = f[9].toString().toUpperCase();
+                      saveData['PESO'] = f[10].toString().toUpperCase();
+                      saveData['CF'] = f[11].toString().toUpperCase();
+                      saveData['NRTESSERA'] = f[12].toString().toUpperCase();
+                      saveData['NOTE'] = '';
 //                      print('========');
 //                    print(saveData);
-                    iscrittiAdd(saveData);
+                      iscrittiAdd(saveData);
+                    }
+                    isFirstLine = false;
                   }
                 }
               } else {

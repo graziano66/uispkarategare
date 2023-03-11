@@ -33,7 +33,7 @@ class PrKataElenchi {
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
           child: Container(
-        child: Text('$club'),
+        child: Text('$club '),
       )),
       Expanded(
           child: Container(

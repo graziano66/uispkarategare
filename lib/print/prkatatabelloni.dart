@@ -347,9 +347,9 @@ class PrKataTabelloni {
     final logo1 = MemoryImage(
       File('logo1.png').readAsBytesSync(),
     );
-    final logo2 = MemoryImage(
-      File('logo2.png').readAsBytesSync(),
-    );
+//    final logo2 = MemoryImage(
+//      File('logo2.png').readAsBytesSync(),
+//    );
     final logo3 = MemoryImage(
       File('logo3.jpg').readAsBytesSync(),
     );
